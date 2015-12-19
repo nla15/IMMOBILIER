@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+  
+<managed-bean>
+	<managed-bean-name>UtilisateurCtrl</managed-bean-name>
+	<managed-bean-class>alda.immobilier.utilisateur.UserLoginCtrl</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<navigation-rule>
+	<display-name>sinscrire</display-name>
+	<from-view-id>/sinscrire.xhtml</from-view-id>
+	<navigation-case>
+		<from-outcome>connection</from-outcome>
+		<to-view-id>/connection.xhtml</to-view-id>
+		<redirect />
+	</navigation-case>
+</navigation-rule>
+
+</faces-config>

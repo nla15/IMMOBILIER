@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14501025514707" configfile="/alda.immobilier/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="sinscrire" x="122" y="178" id="pf14501777662808" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14501777662809" path="/sinscrire.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="connection.xhtml" x="338" y="178" id="pf145017776628010" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14501777662809" path="/connection.xhtml"/>
+  <links id="pf14501777662809" target="pf145017776628010" source="pf14501777662808" outcome="connection" redirect="true"/>
+</pageflow:Pageflow>

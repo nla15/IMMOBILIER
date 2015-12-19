@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC 
+          "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+<h:body>
+	<h1>Page de Connexion</h1>
+	
+	<h:form>
+        <h:outputText value="Votre Email: " />
+        <h:inputText id="email" binding="#{inpEMail}"></h:inputText>
+        <h:message for="email"></h:message>
+        <br /><br />
+         
+        <h:outputText value="Votre mot de passe: " />
+        <h:inputSecret id="mdp" binding="#{inpMdp}"></h:inputSecret>
+        <h:message for="mdp"></h:message>
+        <br /><br />
+         
+        <h:commandButton  type="submit" action="#{UserLoginCtrl.login(inpEMail.value, inpMdp.value)}"
+            value="se connecter"></h:commandButton> <br /><br />
+            
+        <h:messages style="color:red" />
+        <h:outputText style="color:green" value="#{UserLoginCtrl.msgDeco}" />
+        <br/>    
+        <h:link value="s'inscrire" outcome="/sinscrire.xhtml" />
+
+    </h:form>
+	
+</h:body>
+</html>

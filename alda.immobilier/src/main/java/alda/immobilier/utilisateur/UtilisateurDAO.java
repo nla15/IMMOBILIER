@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-
 @Stateless
 public class UtilisateurDAO {
 	private EntityManager entityManager;

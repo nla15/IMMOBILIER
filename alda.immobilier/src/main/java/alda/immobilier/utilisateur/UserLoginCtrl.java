@@ -11,7 +11,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import alda.immobilier.adresse.Region;
 import alda.immobilier.adresse.RegionDAO;
 
 @ManagedBean(name="UserLoginCtrl", eager= true)
@@ -19,7 +18,7 @@ import alda.immobilier.adresse.RegionDAO;
 public class UserLoginCtrl implements Serializable{
 
 	private static final long serialVersionUID = -8989686930181709270L;
-	private UserLogin user;
+	private UserLogin userLogin;
 	private Integer id;
 	private String msgDeco;
 	
@@ -57,7 +56,7 @@ public class UserLoginCtrl implements Serializable{
 			 try {
 				ec.redirect(ec.getRequestContextPath() + "/connection.xhtml");
 				this.id = null;
-				this.user = null;
+				this.userLogin = null;
 				msgDeco = "Vous êtes déconnecté. Au revoir!";
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -75,7 +74,7 @@ public class UserLoginCtrl implements Serializable{
 
 			 if ( connexions.connecterUtilisateur(u.getId() ) ){
 					 this.id = u.getId();
-					 this.user = u;
+					 this.userLogin = u;
 					 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 					 ec.redirect(ec.getRequestContextPath() + "/accueil.xhtml");
 			 } else {
@@ -118,14 +117,27 @@ public class UserLoginCtrl implements Serializable{
 	}
 
 	public UserLogin getUserLogin() {
-		return user;
+		return userLogin;
 	}
 
 	public void setUserLogin(UserLogin user) {
-		this.user = user;
+		this.userLogin = user;
 	}
 	
 	public Integer getUserLoginId(){
 		return id;
+	}
+	
+	public boolean suisJeCo(){
+		return userLogin != null;
+	}
+	
+	public boolean suisJePasCo(){
+		return !suisJeCo();
+	}
+	
+	public boolean suisJeCoAdmin(){
+		return 	userLogin != null &&
+				connexions.getUtilisateur(userLogin.getId()).getAdmin();
 	}
 }

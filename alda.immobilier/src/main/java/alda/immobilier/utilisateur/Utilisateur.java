@@ -50,7 +50,7 @@ public class Utilisateur implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public boolean isAdmin() {
+	public boolean getAdmin() {
 		return admin;
 	}
 	public void setAdmin(boolean admin) {

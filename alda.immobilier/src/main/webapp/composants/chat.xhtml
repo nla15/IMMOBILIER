@@ -1,0 +1,15 @@
+<!-- A inclure avec <ui:include src="composants/chat.xhtml" /> -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<h3>Chat</h3>
+	<h:form>
+		<h:inputTextarea rows="10" cols="30" readonly="true" />
+		<br/>Votre message :<br/>
+		<h:inputTextarea rows="3" cols="30"/><br/>
+		<h:commandButton type="submit" value="Poster"/>
+	</h:form>
+	
+</ui:composition>

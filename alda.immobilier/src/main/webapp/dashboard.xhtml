@@ -12,14 +12,7 @@
 </h:head>
 <h:body>
 
-	<h:link value="Accueil" outcome="/accueil.xhtml" /><br/>
-	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
-		<h:link value="Mon espace" outcome="/informations.xhtml" /><br/>
-		<h:form><h:commandLink value="Se déconnecter" action="#{UserLoginCtrl.deconnecter()}"/></h:form><br/>
-	</h:panelGroup>
-	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCoAdmin()}">
-		<h:link value="Dashboard" outcome="/dashboard.xhtml" /><br/>
-	</h:panelGroup>
+	<ui:include src="composants/menu.xhtml"/>
 	
 	<h2>Dashboard administrateur</h2>
 

@@ -1,7 +1,6 @@
 package alda.immobilier.chat;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -21,13 +20,11 @@ public class ChatSession implements Serializable{
 	private Chat chat;
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl usc;
-	private ArrayList<ChatCtrl> vues;
 	private String conversation;
 	private int numSession;
 
 	public ChatSession(){
 		conversation = new String();
-		vues = new ArrayList<>();
 		numSession = -1;
 	}
 	
@@ -55,14 +52,6 @@ public class ChatSession implements Serializable{
 	public void posterMessage(String contenu){
 		chat.posterMessage(getExpediteurMsg(), contenu);
 	}
-	
-	public void ajouterChatCtrl(ChatCtrl vue){
-		vues.add(vue);
-	}
-	
-	public void retirerChatCtrl(ChatCtrl vue){
-		vues.remove(vue);
-	}
 
 	public UserLoginCtrl getUsc() {
 		return usc;
@@ -81,6 +70,7 @@ public class ChatSession implements Serializable{
 	}
 	public void setConversation(String conversation) {
 		this.conversation = conversation;
+		
 		System.out.println(" ... "  + getExpediteurMsg() + " a bien reçu!");
 	}
 }

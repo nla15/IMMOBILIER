@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 public class Chat implements Serializable {
 	private static final long serialVersionUID = 1148132624820376439L;
 	private static final int MAX_MSG = 500;
-
+	
 	private ArrayList<ChatSession> sessions;
 	private ArrayList<Message> messages;
 	
@@ -29,11 +29,11 @@ public class Chat implements Serializable {
 		System.out.println("\n*---*");
 		for ( ChatSession cs : sessions ){
 			System.out.println("Session " + cs.getExpediteurMsg() +", addr " + cs + " : envoi de la conversation...");
-			cs.setConversation(chaineConversation());
+			cs.setConversation(genChaineConversation());
 		}
 	}
 	
-	public String chaineConversation(){
+	public String genChaineConversation(){
 		String res = "";
 		
 		for ( Message msg : messages )
@@ -44,7 +44,7 @@ public class Chat implements Serializable {
 	
 	public void ajouterChatSession(ChatSession cs){
 		sessions.add(cs);
-		cs.setConversation(chaineConversation());
+		cs.setConversation(genChaineConversation());
 	}
 	
 	public void retirerChatSession(ChatSession cs){

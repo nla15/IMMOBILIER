@@ -65,12 +65,12 @@ public class UserLoginCtrl implements Serializable{
 	}
 		
 	public void login(String mail, String mdp) throws IOException{
-		System.out.println("Mail : " + mail + " mdp : " + mdp);
+		//System.out.println("Mail : " + mail + " mdp : " + mdp);
 		UserLogin u = ulDao.getUser(mail, mdp);
 		
 		if ( u != null ){
 			// Login
-			System.out.println("owi");
+			//System.out.println("owi");
 
 			 if ( connexions.connecterUtilisateur(u.getId() ) ){
 					 this.id = u.getId();

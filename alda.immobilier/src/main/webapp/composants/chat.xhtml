@@ -3,10 +3,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-	
 	<h3>Chat</h3>
+	
 	<h:outputText value="#{chatCtrl.bienvenue()}"/>
-	<h:form>
+	<h:form id="converse">
 		<h:inputTextarea rows="10" cols="40" readonly="true" value="#{chatCtrl.conversation}"/>
 		<br/>Votre message :<br/>
 		<h:inputTextarea rows="3" cols="40" value="#{chatCtrl.contenuMsg}"/><br/>

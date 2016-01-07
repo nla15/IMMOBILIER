@@ -2,8 +2,6 @@ package alda.immobilier.chat;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
@@ -21,16 +19,6 @@ public class ChatCtrl implements Serializable{
 		contenuMsg = new String();
 	}
 	
-	@PostConstruct
-	public void init(){
-		chatSession.ajouterChatCtrl(this);
-	}
-	
-	@PreDestroy
-	public void destroy(){
-		chatSession.retirerChatCtrl(this);
-	}
-	
 	public void posterMessage(){
 		chatSession.posterMessage(contenuMsg);
 		contenuMsg = "";
@@ -38,6 +26,10 @@ public class ChatCtrl implements Serializable{
 	
 	public String bienvenue(){
 		return "Bienvenue, " + getExpediteurMsg() + " !";
+	}
+	
+	public void rafraichir(){
+		System.out.println("Sarah Fraichi");
 	}
 	
 	public String getExpediteurMsg(){

@@ -1,9 +1,11 @@
 package alda.immobilier.chat;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Message {
+public class Message implements Serializable{
+	private static final long serialVersionUID = 8156682447165775652L;
 	private static final DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
 	
 	private final String expediteur, contenu;

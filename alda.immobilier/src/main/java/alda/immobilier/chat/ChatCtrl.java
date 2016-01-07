@@ -3,6 +3,7 @@ package alda.immobilier.chat;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
@@ -12,43 +13,41 @@ import javax.faces.view.ViewScoped;
 public class ChatCtrl implements Serializable{
 	private static final long serialVersionUID = 1148132624820376439L;
 	
-	@ManagedProperty(value="#{chat}")
-	private Chat chat;
-	private String expediteurMsg, contenuMsg, conversation;
-
+	@ManagedProperty(value="#{chatSession}")
+	private ChatSession chatSession;
+	private String contenuMsg;
+	
 	public ChatCtrl(){
-		expediteurMsg = new String("Visiteur");
 		contenuMsg = new String();
-		conversation = new String();
 	}
 	
 	@PostConstruct
 	public void init(){
-		chat.ajouterChatCtrl(this);
+		chatSession.ajouterChatCtrl(this);
 	}
 	
-	@Override
-	public void finalize() throws Throwable{
-		super.finalize();
-		chat.retirerChatCtrl(this);
+	@PreDestroy
+	public void destroy(){
+		chatSession.retirerChatCtrl(this);
 	}
 	
 	public void posterMessage(){
-		chat.posterMessage(expediteurMsg, contenuMsg);
+		chatSession.posterMessage(contenuMsg);
 		contenuMsg = "";
 	}
-
-	public Chat getChat(){
-		return chat;
+	
+	public String bienvenue(){
+		return "Bienvenue, " + getExpediteurMsg() + " !";
 	}
-	public void setChat(Chat chat){
-		this.chat = chat;
+	
+	public String getExpediteurMsg(){
+		return chatSession.getExpediteurMsg();
 	}
-	public String getExpediteurMsg() {
-		return expediteurMsg;
+	public ChatSession getChatSession() {
+		return chatSession;
 	}
-	public void setExpediteurMsg(String expediteurMsg) {
-		this.expediteurMsg = expediteurMsg;
+	public void setChatSession(ChatSession chatSession) {
+		this.chatSession = chatSession;
 	}
 	public String getContenuMsg() {
 		return contenuMsg;
@@ -57,9 +56,9 @@ public class ChatCtrl implements Serializable{
 		this.contenuMsg = contenuMsg;
 	}
 	public String getConversation() {
-		return conversation;
+		return chatSession.getConversation();
 	}
 	public void setConversation(String conversation) {
-		this.conversation = conversation;
+		chatSession.setConversation(conversation);
 	}
 }

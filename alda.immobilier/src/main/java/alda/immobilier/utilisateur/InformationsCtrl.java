@@ -68,10 +68,10 @@ public class InformationsCtrl implements Serializable{
 		
 		if ( ul != null ){
 			Integer uid = ul.getId();
-			System.out.println("uid = " + uid);
-			System.out.println("utDao = " + utDao);
+			//System.out.println("uid = " + uid);
+			//System.out.println("utDao = " + utDao);
 			infosUtil = utDao.getUtilisateur(uid);
-			System.out.println("infosUtil = " + infosUtil);
+			//System.out.println("infosUtil = " + infosUtil);
 		} else
 			infosUtil = null;
 		

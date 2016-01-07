@@ -83,7 +83,7 @@ public class UserLoginCtrl implements Serializable{
 			
 		} else {
 			// Erreur
-			System.out.println("onon");
+			//System.out.println("onon");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Combinaison email / mot-de-passe incorrecte."));
 		}
 		
@@ -93,16 +93,16 @@ public class UserLoginCtrl implements Serializable{
 		UserLogin newUser = new UserLogin(mail, mdp);
 		Utilisateur newUtilisateur = new Utilisateur(); 
 		//Region dftRegion = reDao.getDefaultRegion();
-		System.out.println("mon user: "+ newUser);
+		//System.out.println("mon user: "+ newUser);
 		
 		if ( !ulDao.verifMailExiste(mail) ){
-			System.out.println("On va set l'userlogin pour l'utilisateur");
+			//System.out.println("On va set l'userlogin pour l'utilisateur");
 			newUtilisateur.creerVide();
 			newUtilisateur.setIdRefUserLogin(newUser);
 			//newUtilisateur.getAdressePostale().setRegionAdr(dftRegion);
-			System.out.println("On va insérer le nv utilisateur");
+			//System.out.println("On va insérer le nv utilisateur");
 			utDao.insertUtilisateur(newUtilisateur);
-			System.out.println("Bon ok");
+			//System.out.println("Bon ok");
 			
 			 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			 try {

@@ -5,6 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 	
 	<h3>Chat</h3>
+	<h:outputText value="#{chatCtrl.bienvenue()}"/>
 	<h:form>
 		<h:inputTextarea rows="10" cols="40" readonly="true" value="#{chatCtrl.conversation}"/>
 		<br/>Votre message :<br/>

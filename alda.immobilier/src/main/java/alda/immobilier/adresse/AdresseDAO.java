@@ -20,7 +20,7 @@ public class AdresseDAO {
 	public List<Adresse>  getAllAdresse(){
 		List<Adresse> listAdr;
 		String req = "select * from Adresse";
-		System.out.println(req);
+		//System.out.println(req);
 		listAdr = entityManager.createNativeQuery(req, Adresse.class).getResultList();
 		
 		return listAdr;

@@ -25,11 +25,11 @@ public class UserLoginDAO {
 	public UserLogin getUser(String mail_, String mdp_){
 		List<UserLogin> listU;
 		String req = "select * from UserLogin where mail='"+ mail_+"' and mdp='" +mdp_ + "'";
-		System.out.println(req);
+		//System.out.println(req);
 		listU = entityManager.createNativeQuery(req, UserLogin.class).getResultList();
 		if(!listU.isEmpty()){
 			user = listU.get(0);
-			System.out.println(listU);
+			//System.out.println(listU);
 		}else
 			user = null;
 		return user;

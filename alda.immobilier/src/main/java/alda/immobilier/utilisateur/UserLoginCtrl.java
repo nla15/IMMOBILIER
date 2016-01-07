@@ -100,7 +100,7 @@ public class UserLoginCtrl implements Serializable{
 			newUtilisateur.creerVide();
 			newUtilisateur.setIdRefUserLogin(newUser);
 			//newUtilisateur.getAdressePostale().setRegionAdr(dftRegion);
-			System.out.println("On va ins�rer le nv utilisateur");
+			System.out.println("On va insérer le nv utilisateur");
 			utDao.insertUtilisateur(newUtilisateur);
 			System.out.println("Bon ok");
 			

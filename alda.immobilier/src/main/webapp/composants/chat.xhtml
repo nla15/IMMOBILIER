@@ -6,10 +6,10 @@
 	
 	<h3>Chat</h3>
 	<h:form>
-		<h:inputTextarea rows="10" cols="30" readonly="true" />
+		<h:inputTextarea rows="10" cols="40" readonly="true" value="#{chatCtrl.conversation}"/>
 		<br/>Votre message :<br/>
-		<h:inputTextarea rows="3" cols="30"/><br/>
-		<h:commandButton type="submit" value="Poster"/>
+		<h:inputTextarea rows="3" cols="40" value="#{chatCtrl.contenuMsg}"/><br/>
+		<h:commandButton type="submit" value="Poster" action="#{chatCtrl.posterMessage()}"/>
 	</h:form>
 	
 </ui:composition>

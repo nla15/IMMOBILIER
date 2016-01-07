@@ -12,9 +12,7 @@
 </h:head>
 <h:body>
 	
-	<h:link value="Accueil" outcome="/accueil.xhtml" /><br/>
-	<h:link value="Dashboard" outcome="/dashboard.xhtml" /><br/>
-	<h:form><h:commandLink value="se déconnecter" action="#{UserLoginCtrl.deconnecter()}"/></h:form>
+	<ui:include src="composants/menu.xhtml"/>
 	
 	<h2>Mon espace personnel</h2>
 	

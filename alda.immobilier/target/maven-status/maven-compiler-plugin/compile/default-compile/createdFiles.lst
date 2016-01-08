@@ -1,5 +1,6 @@
 alda\immobilier\utilisateur\InformationsCtrl.class
 alda\immobilier\utilisateur\UserLoginDAO.class
+alda\immobilier\chat\ChatSession.class
 alda\immobilier\utilisateur\UserLoginCtrl.class
 alda\immobilier\adresse\Adresse.class
 alda\immobilier\chat\Message.class

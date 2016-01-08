@@ -28,10 +28,6 @@ public class ChatCtrl implements Serializable{
 		return "Bienvenue, " + getExpediteurMsg() + " !";
 	}
 	
-	public void rafraichir(){
-		System.out.println("Sarah Fraichi");
-	}
-	
 	public String getExpediteurMsg(){
 		return chatSession.getExpediteurMsg();
 	}

@@ -2,15 +2,17 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 	<h3>Chat</h3>
 	
 	<h:outputText value="#{chatCtrl.bienvenue()}"/>
 	<h:form id="converse">
-		<h:inputTextarea rows="10" cols="40" readonly="true" value="#{chatCtrl.conversation}"/>
+		<h:inputTextarea id="convTA" rows="10" cols="40" readonly="true" value="#{chatCtrl.conversation}"/>
 		<br/>Votre message :<br/>
 		<h:inputTextarea rows="3" cols="40" value="#{chatCtrl.contenuMsg}"/><br/>
 		<h:commandButton type="submit" value="Poster" action="#{chatCtrl.posterMessage()}"/>
+		<p:poll update="convTA"/>
 	</h:form>
 	
 </ui:composition>

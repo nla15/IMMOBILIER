@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 import alda.immobilier.utilisateur.Utilisateur;
 
-@ManagedBean(name="chatSession", eager=true)
+@ManagedBean(name="chatSession")
 @SessionScoped
 public class ChatSession implements Serializable{
 	private static final long serialVersionUID = 1148132624820376439L;

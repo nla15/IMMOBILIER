@@ -7,7 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 @Stateless
-public class UtilisateurDAO {
+public class UtilisateurDAO{
+	
 	private EntityManager entityManager;
 	private static final String JPA_UNIT_NAME = "immodbunit";
 	

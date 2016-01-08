@@ -29,7 +29,8 @@ public class Chat implements Serializable {
 		System.out.println("\n*---*");
 		for ( ChatSession cs : sessions ){
 			System.out.println("Session " + cs.getExpediteurMsg() +", addr " + cs + " : envoi de la conversation...");
-			cs.setConversation(genChaineConversation());
+			//cs.setConversation(genChaineConversation());
+			cs.ajouterMessageConversation(genChaineDernierMessage());
 		}
 	}
 	
@@ -40,6 +41,10 @@ public class Chat implements Serializable {
 			res += msg.toString() + "\n\n";
 		
 		return res;
+	}
+	
+	public String genChaineDernierMessage(){
+		return messages.get( messages.size() -1).toString() + "\n\n";
 	}
 	
 	public void ajouterChatSession(ChatSession cs){

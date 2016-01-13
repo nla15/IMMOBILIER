@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 
+import alda.immobilier.bdd.immodbDAO;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 
 import javax.faces.bean.ManagedBean;
@@ -20,16 +21,17 @@ public class RegionCtrl implements Serializable {
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl ulc;
 	@EJB
-	private RegionDAO reDAO;
+	private RegionDAO reDao;
+	@EJB
+	private immodbDAO imDao;
 	private String nomRegSelect;
 	
-	public RegionCtrl(){
-	}
+	public RegionCtrl(){}
 	
 	@PostConstruct
 	public void init(){
 		if ( ulc.suisJeCo() ){
-			nomRegSelect = ulc.getUtilisateur().getAdressePostale().getRegionAdr().getNomRegion();
+			nomRegSelect = ulc.getUtilisateurConnecte().getAdressePostale().getRegionAdr().getNomRegion();
 		} else {
 			nomRegSelect = getRegionParDefaut().getNomRegion();
 		}
@@ -48,7 +50,7 @@ public class RegionCtrl implements Serializable {
 	}
 	
 	public List<Region> getRegions(){
-		return reDAO.getAllRegion();
+		return imDao.getAllRegion();
 	}
 	
 	public String getNomRegSelect(){

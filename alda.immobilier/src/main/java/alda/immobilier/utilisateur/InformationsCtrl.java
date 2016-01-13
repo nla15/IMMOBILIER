@@ -11,11 +11,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import alda.immobilier.adresse.Region;
 import alda.immobilier.adresse.RegionCtrl;
+import alda.immobilier.bdd.immodbDAO;
 
-/*import alda.immobilier.adresse.AdresseDAO;
-import alda.immobilier.adresse.RegionDAO;*/
 
 @ManagedBean(name="informationsCtrl", eager= true)
 @ViewScoped
@@ -23,11 +21,11 @@ public class InformationsCtrl implements Serializable{
 	private static final long serialVersionUID = -3290072609027822120L;
 
 	@ManagedProperty(value="#{regionCtrl}")
-	private RegionCtrl rCtrl;
+	private RegionCtrl rec;
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl usc;
 	@EJB
-	UtilisateurDAO utDao;
+	private immodbDAO imDao;
 	
 	private Utilisateur infosUtil;
 	private String mail,
@@ -54,7 +52,6 @@ public class InformationsCtrl implements Serializable{
 		libelle = infosUtil.getAdressePostale().getLibelle();
 		cdp = infosUtil.getAdressePostale().getCodePostal();
 		ville = infosUtil.getAdressePostale().getVille();
-		//nomReg = infosUtil.getAdressePostale().getRegionAdr().getNomRegion();
 	}
 
 	public Utilisateur getInfosUtil(){
@@ -62,7 +59,7 @@ public class InformationsCtrl implements Serializable{
 		
 		if ( ul != null ){
 			Integer uid = ul.getId();
-			infosUtil = utDao.getUtilisateur(uid);
+			infosUtil = imDao.getUtilisateur(uid);
 		} else
 			infosUtil = null;
 		
@@ -83,9 +80,9 @@ public class InformationsCtrl implements Serializable{
 		infosUtil.getAdressePostale().setLibelle(libelle);
 		infosUtil.getAdressePostale().setCodePostal(cdp);
 		infosUtil.getAdressePostale().setVille(ville);
-		infosUtil.getAdressePostale().setRegionAdr( rCtrl.getRegSelect() );
+		infosUtil.getAdressePostale().setRegionAdr( rec.getRegSelect() );
 		
-		utDao.update(infosUtil);
+		imDao.update(infosUtil);
 	}
 	
 	public void annuler(){
@@ -106,12 +103,12 @@ public class InformationsCtrl implements Serializable{
 		this.usc = usc;
 	}
 	
-	public RegionCtrl getrCtrl() {
-		return rCtrl;
+	public RegionCtrl getRec() {
+		return rec;
 	}
 
-	public void setrCtrl(RegionCtrl rCtrl) {
-		this.rCtrl = rCtrl;
+	public void setRec(RegionCtrl rec) {
+		this.rec = rec;
 	}
 	
 	public String getMail() {
@@ -177,13 +174,4 @@ public class InformationsCtrl implements Serializable{
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-
-	/*public String getNomReg() {
-		return nomReg;
-	}
-
-	public void setNomReg(String nomReg) {
-		this.nomReg = nomReg;
-	}*/
-
 }

@@ -13,7 +13,7 @@ create table if not exists Adresse (
 	libelle varchar(300) not null,
 	codePostal varchar(5) not null,
 	ville varchar(100) not null,
-	regionAdr int(11) not null,
+	regionAdr int(11),
 	
 	foreign key (regionAdr) references Region(id),
 	primary key(id)

@@ -34,8 +34,7 @@ public class Adresse implements Serializable {
 		libelle = new String("dft");
 		codePostal = new String("dft");
 		ville = new String("dft");
-		regionAdr = new Region();//null;
-		regionAdr.creerVide();
+		regionAdr = null;
 	}
 	
 	public String getLibelle() {
@@ -62,5 +61,4 @@ public class Adresse implements Serializable {
 	public void setRegionAdr(Region regionAdr) {
 		this.regionAdr = regionAdr;
 	}
-
 }

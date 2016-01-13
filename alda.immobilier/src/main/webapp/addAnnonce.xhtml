@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC 
+          "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+<h:body>
+
+	<ui:include src="composants/menu.xhtml"/>
+	<center> <h2> Ajouter une annonce </h2> </center>
+	
+		<h:form>
+		<h:panelGrid border="0" columns="3" cellpadding="5">
+			<h:outputText value="Designation *" />
+			<h:inputText id="Designation" value="#{annonceCtrl.newAnnonce.designation}"
+				required="true" requiredMessage="Designation obligatoire" />
+			<h:message for="Designation" />
+			
+			<h:outputText value="Description" />
+			<h:inputText id="Description" value="#{annonceCtrl.newAnnonce.description}"/><br/>
+			
+			<h:outputText value="Surface *" />
+			<h:inputText id="Surface" value="#{annonceCtrl.newAnnonce.surface}"
+				required="true" requiredMessage="Surface obligatoire" />
+			<h:message for="Surface" />
+			
+			<h:outputText value="Prix *" />
+			<h:inputText id="Prix" value="#{annonceCtrl.newAnnonce.prix}"
+				required="true" requiredMessage="Prix obligatoire" />
+			<h:message for="Prix" />
+					
+			<br/>
+		</h:panelGrid>
+		
+		<fieldset>
+				<legend>Adresse</legend>
+				
+				<h:outputText value="Libelle: " />
+				<h:inputText id="Libelle" value="#{annonceCtrl.newAnnonce.adresseAnn.libelle}" />
+				<br/><br/>
+						
+				<h:outputText value="Code Postal: * " />
+				<h:inputText id="cdp" value="#{annonceCtrl.newAnnonce.adresseAnn.codePostal}"
+					required="true" requiredMessage="Code Postal obligatoire" />
+				<h:message for="cdp" /><br/><br/>
+				
+				<h:outputText value="Ville: * " />
+				<h:inputText id="ville" value="#{annonceCtrl.newAnnonce.adresseAnn.ville}"
+					required="true" requiredMessage="Ville obligatoire" />
+				<h:message for="ville" /><br/><br/>
+							
+				<h:outputText value="Region: * " />
+				<h:inputText id="region" value="#{annonceCtrl.newAnnonce.adresseAnn.regionAdr.nomRegion}"
+					required="true" requiredMessage="Region obligatoire" />
+				<h:message for="region" />	
+			</fieldset>
+			<br/>
+
+			<br/>
+			
+       		<h:messages style="color:red" />			
+			<h:commandButton value="Ajouter" action="#{AnnonceCtrl.creerAnnonce}" />
+	</h:form>
+		
+</h:body>
+</html>

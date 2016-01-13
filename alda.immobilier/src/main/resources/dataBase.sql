@@ -49,12 +49,14 @@ create table if not exists Annonce (
 	surface int(12) not null,
 	description varchar(500),
 	adresseAnn int(11) not null,
+	idRefUser int(11) not null,
 	
+	foreign key (idRefUser) references Utilisateur(id),
 	foreign key (adresseAnn) references Adresse(id),
 	primary key(id)
 ) engine=innodb;
 
-create table if not exists Photo (
+create table if not exists Image (
 	id int(11) not null AUTO_INCREMENT,
 	url varchar(300) not null,
 	annonceImg int(11) not null,
@@ -75,3 +77,9 @@ insert into UserLogin values (0,'netty.larisse@etu.u-bordeaux.fr', 'mdp');
 
 insert into Utilisateur values (0, 1, 'Nobile', 'Clovis', '0665308576', 1,1);
 insert into Utilisateur values (0, 1, 'Moimeme', 'Moimeme', null ,2,2);
+
+insert into Annonce values(0,'Studio 30m²', 500, 30, 'Tres grand et enorme studio', 1,  2);
+insert into Annonce values(0,'Appart 9m²', 500, 30, 'Petit appartement posé au calme', 2,  1);
+
+insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image1.jpg', 1 );
+insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image2.jpg',2);

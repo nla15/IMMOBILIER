@@ -83,9 +83,7 @@ public class InformationsCtrl implements Serializable{
 	
 	}
 	
-	public void enregistrer(/*String iMail, String iMdp, String iNom,
-			 				String iPrenom, String iMobile, String iLibelle,
-			 				String iCdp, String iVille, String iNomReg*/)
+	public void enregistrer()
 	{
 		infosUtil.getIdRefUserLogin().setMail(mail);
 		infosUtil.getIdRefUserLogin().setMdp(mdp);
@@ -95,7 +93,7 @@ public class InformationsCtrl implements Serializable{
 		infosUtil.getAdressePostale().setLibelle(libelle);
 		infosUtil.getAdressePostale().setCodePostal(cdp);
 		infosUtil.getAdressePostale().setVille(ville);
-		infosUtil.getAdressePostale().getRegionAdr().setNomRegion(nomReg);//*/
+		infosUtil.getAdressePostale().getRegionAdr().setNomRegion(nomReg);
 		utDao.update(infosUtil);
 	}
 	

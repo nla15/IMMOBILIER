@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC 
+          "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+<h:body>
+
+	<ui:include src="composants/menu.xhtml"/>
+	
+	<center><h3>Mon Annonce</h3></center>
+	
+	<h:form>
+		<h:panelGrid columns="2" border="0">
+   			<h:outputText value="Identifiant: "/>
+   			<h:outputText maxlength="50" binding="#{iId}" value="#{annonceCtrl.ann.id}"/>
+   			<h:outputText value="Designation: "/>
+   			<h:inputText maxlength="50" binding="#{iDesg}" value="#{annonceCtrl.ann.designation}"/>
+   			<h:outputText value="Surface: "/>
+   			<h:inputText maxlength="50" binding="#{iSurf}" value="#{annonceCtrl.ann.surface}"/>
+   			<h:outputText value="Description: "/>
+   			<h:inputTextarea maxlength="50" binding="#{iDesc}" value="#{annonceCtrl.ann.description}"/>
+   			<h:outputText value="Vendeur: "/>
+   			<h:inputText maxlength="50" binding="#{iVend}" value="#{annonceCtrl.ann.idRefUser.nom}"/>
+   			<h:outputText value="Mobile: "/>
+   			<h:inputText maxlength="50" binding="#{iMobile}" value="#{annonceCtrl.ann.idRefUser.mobile}"/>
+   			<h:outputText value="Mail: "/>
+   			<h:inputText maxlength="50" binding="#{iMail}" value="#{annonceCtrl.ann.idRefUser.idRefUserLogin.mail}"/>
+   		</h:panelGrid>
+   		<h:messages style="color:red" />
+   		
+   		 <h:commandButton type="submit" value="Modifier">
+   		 	</h:commandButton> 
+   		<h:commandButton  type="submit" value="Annuler"></h:commandButton>
+   		</h:form>
+
+</h:body>
+</html>

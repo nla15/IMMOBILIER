@@ -20,7 +20,6 @@ public class RegionDAO {
 	public List<Region> getAllRegion(){
 		List<Region> listReg;
 		String req = "select * from Region";
-		//System.out.println(req);
 		listReg = entityManager.createNativeQuery(req, Region.class).getResultList();
 		
 		return listReg;

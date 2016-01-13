@@ -11,6 +11,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import alda.immobilier.adresse.Region;
+import alda.immobilier.adresse.RegionCtrl;
+
 /*import alda.immobilier.adresse.AdresseDAO;
 import alda.immobilier.adresse.RegionDAO;*/
 
@@ -19,6 +22,10 @@ import alda.immobilier.adresse.RegionDAO;*/
 public class InformationsCtrl implements Serializable{
 	private static final long serialVersionUID = -3290072609027822120L;
 
+	@ManagedProperty(value="#{regionCtrl}")
+	private RegionCtrl rCtrl;
+	@ManagedProperty(value="#{UserLoginCtrl}")
+	private UserLoginCtrl usc;
 	@EJB
 	UtilisateurDAO utDao;
 	
@@ -30,11 +37,7 @@ public class InformationsCtrl implements Serializable{
 	mobile,
 	libelle,
 	cdp,
-	ville,
-	nomReg;
-
-	@ManagedProperty(value="#{UserLoginCtrl}")
-	private UserLoginCtrl usc;
+	ville;
 	
 	public InformationsCtrl(){
 		infosUtil = null;
@@ -51,27 +54,15 @@ public class InformationsCtrl implements Serializable{
 		libelle = infosUtil.getAdressePostale().getLibelle();
 		cdp = infosUtil.getAdressePostale().getCodePostal();
 		ville = infosUtil.getAdressePostale().getVille();
-		nomReg = infosUtil.getAdressePostale().getRegionAdr().getNomRegion();
+		//nomReg = infosUtil.getAdressePostale().getRegionAdr().getNomRegion();
 	}
 
-	public UserLoginCtrl getUsc() {
-		return usc;
-	}
-
-	public void setUsc(UserLoginCtrl usc) {
-		this.usc = usc;
-	}
-	
 	public Utilisateur getInfosUtil(){
-		System.out.println("getInfosUtil : ");
 		UserLogin ul = usc.getUserLogin();
 		
 		if ( ul != null ){
 			Integer uid = ul.getId();
-			//System.out.println("uid = " + uid);
-			//System.out.println("utDao = " + utDao);
 			infosUtil = utDao.getUtilisateur(uid);
-			//System.out.println("infosUtil = " + infosUtil);
 		} else
 			infosUtil = null;
 		
@@ -80,7 +71,6 @@ public class InformationsCtrl implements Serializable{
 	
 	public void setInfosUtil(Utilisateur u){
 		infosUtil = u;
-	
 	}
 	
 	public void enregistrer()
@@ -93,7 +83,8 @@ public class InformationsCtrl implements Serializable{
 		infosUtil.getAdressePostale().setLibelle(libelle);
 		infosUtil.getAdressePostale().setCodePostal(cdp);
 		infosUtil.getAdressePostale().setVille(ville);
-		infosUtil.getAdressePostale().getRegionAdr().setNomRegion(nomReg);
+		infosUtil.getAdressePostale().setRegionAdr( rCtrl.getRegSelect() );
+		
 		utDao.update(infosUtil);
 	}
 	
@@ -105,6 +96,22 @@ public class InformationsCtrl implements Serializable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public UserLoginCtrl getUsc() {
+		return usc;
+	}
+
+	public void setUsc(UserLoginCtrl usc) {
+		this.usc = usc;
+	}
+	
+	public RegionCtrl getrCtrl() {
+		return rCtrl;
+	}
+
+	public void setrCtrl(RegionCtrl rCtrl) {
+		this.rCtrl = rCtrl;
 	}
 	
 	public String getMail() {
@@ -171,12 +178,12 @@ public class InformationsCtrl implements Serializable{
 		this.ville = ville;
 	}
 
-	public String getNomReg() {
+	/*public String getNomReg() {
 		return nomReg;
 	}
 
 	public void setNomReg(String nomReg) {
 		this.nomReg = nomReg;
-	}
+	}*/
 
 }

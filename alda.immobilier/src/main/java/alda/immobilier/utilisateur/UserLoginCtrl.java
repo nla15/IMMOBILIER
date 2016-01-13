@@ -128,6 +128,10 @@ public class UserLoginCtrl implements Serializable{
 		return id;
 	}
 	
+	public Utilisateur getUtilisateur(){
+		return connexions.getUtilisateur(id);
+	}
+	
 	public boolean suisJeCo(){
 		return userLogin != null;
 	}

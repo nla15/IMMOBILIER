@@ -16,6 +16,58 @@
 	
 	<h2>Page d'Accueil appli IMMOBILIER</h2>
 	
+	<center><h3>Liste des Annonces</h3></center>
+		<br/>
+	
+	<h:commandButton value="Ajouter une Annonce" onclick="document.location=('addAnnonce.xhtml')"/>
+	<br/>
+	
+	<h:form>
+		<h:dataTable value="#{annonceCtrl.listAnnonce}" var="a" 
+				styleClass="order-table"
+    			headerClass="order-table-header"
+    			rowClasses="order-table-odd-row,order-table-even-row">    			
+    			
+			<h:column >
+			<f:facet name="header">
+				<h:outputText value="Identifiant" />
+			</f:facet>
+			<h:outputText value="#{a.id}" binding="#{iID}"/>
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Designation" />
+				</f:facet>
+				<h:outputText value="#{a.designation}"  binding="#{iDesign}"/> 
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Prix"/>
+				</f:facet>
+				<h:outputText value="#{a.prix}" binding="#{iPrix}"/> 
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Surface"/>
+				</f:facet>
+				<h:outputText value="#{a.surface}" binding="#{iSurface}"/> 
+			</h:column>
+			
+			<h:column>
+				<h:commandLink value="Voir détails"  type="submit" action="#{annonceCtrl.detail(iID)}"/>
+			</h:column>
+					
+			<h:column>
+				<h:commandLink value="Modifier"  type="submit"  />
+			</h:column>
+		</h:dataTable>
+		
+		</h:form>
+	
+	
 	<ui:include src="composants/chat.xhtml"/>
 		
 </h:body>

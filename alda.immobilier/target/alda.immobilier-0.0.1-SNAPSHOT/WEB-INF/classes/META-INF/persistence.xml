@@ -9,6 +9,7 @@
  <class> alda.immobilier.utilisateur.Utilisateur</class>
  <class> alda.immobilier.adresse.Adresse</class>
  <class> alda.immobilier.adresse.Region</class>
+  <class> alda.immobilier.annonce.Annonce</class>
    <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/immodb" />
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

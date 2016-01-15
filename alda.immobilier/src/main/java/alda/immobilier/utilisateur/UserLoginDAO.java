@@ -51,5 +51,4 @@ public class UserLoginDAO {
 		entityManager.getTransaction().commit();
 		return u;
 	}
-
 }

@@ -11,7 +11,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import alda.immobilier.adresse.RegionDAO;
+import alda.immobilier.adresse.Region;
+import alda.immobilier.bdd.immodbDAO;
 
 @ManagedBean(name="UserLoginCtrl", eager= true)
 @SessionScoped
@@ -23,11 +24,7 @@ public class UserLoginCtrl implements Serializable{
 	private String msgDeco;
 	
 	@EJB
-	UserLoginDAO ulDao;
-	@EJB
-	UtilisateurDAO utDao;
-	@EJB
-	RegionDAO reDao;
+	immodbDAO imDao;
 	
 	@ManagedProperty(value="#{connexionsUtilisateurs}")
 	private ConnexionsUtilisateurs connexions;
@@ -65,12 +62,9 @@ public class UserLoginCtrl implements Serializable{
 	}
 		
 	public void login(String mail, String mdp) throws IOException{
-		//System.out.println("Mail : " + mail + " mdp : " + mdp);
-		UserLogin u = ulDao.getUser(mail, mdp);
+		UserLogin u = imDao.getUser(mail, mdp);
 		
 		if ( u != null ){
-			// Login
-			//System.out.println("owi");
 
 			 if ( connexions.connecterUtilisateur(u.getId() ) ){
 					 this.id = u.getId();
@@ -82,8 +76,6 @@ public class UserLoginCtrl implements Serializable{
 			 }
 			
 		} else {
-			// Erreur
-			//System.out.println("onon");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Combinaison email / mot-de-passe incorrecte."));
 		}
 		
@@ -92,17 +84,14 @@ public class UserLoginCtrl implements Serializable{
 	public void createUserLogin(String mail, String mdp) {
 		UserLogin newUser = new UserLogin(mail, mdp);
 		Utilisateur newUtilisateur = new Utilisateur(); 
-		//Region dftRegion = reDao.getDefaultRegion();
-		//System.out.println("mon user: "+ newUser);
 		
-		if ( !ulDao.verifMailExiste(mail) ){
-			//System.out.println("On va set l'userlogin pour l'utilisateur");
+		if ( !imDao.verifMailExiste(mail) ){
 			newUtilisateur.creerVide();
 			newUtilisateur.setIdRefUserLogin(newUser);
-			//newUtilisateur.getAdressePostale().setRegionAdr(dftRegion);
-			//System.out.println("On va insérer le nv utilisateur");
-			utDao.insertUtilisateur(newUtilisateur);
-			//System.out.println("Bon ok");
+			Region dr = imDao.getDefaultRegion();
+			imDao.insertUtilisateur(newUtilisateur);
+			newUtilisateur.getAdressePostale().setRegionAdr(dr);
+			imDao.update(newUtilisateur);
 			
 			 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			 try {
@@ -114,6 +103,19 @@ public class UserLoginCtrl implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Adresse mail existe déjà."));	
 		}
 		
+	}
+	
+	public boolean suisJeCo(){
+		return userLogin != null;
+	}
+	
+	public boolean suisJePasCo(){
+		return !suisJeCo();
+	}
+	
+	public boolean suisJeCoAdmin(){
+		return 	userLogin != null &&
+				connexions.getUtilisateur(userLogin.getId()).getAdmin();
 	}
 
 	public UserLogin getUserLogin() {
@@ -128,16 +130,7 @@ public class UserLoginCtrl implements Serializable{
 		return id;
 	}
 	
-	public boolean suisJeCo(){
-		return userLogin != null;
-	}
-	
-	public boolean suisJePasCo(){
-		return !suisJeCo();
-	}
-	
-	public boolean suisJeCoAdmin(){
-		return 	userLogin != null &&
-				connexions.getUtilisateur(userLogin.getId()).getAdmin();
+	public Utilisateur getUtilisateurConnecte(){
+		return suisJeCo() ? connexions.getUtilisateur(id) : null;
 	}
 }

@@ -7,12 +7,17 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
+import org.primefaces.model.UploadedFile;
+
+import alda.immobilier.adresse.RegionCtrl;
+import alda.immobilier.bdd.immodbDAO;
 import alda.immobilier.utilisateur.ConnexionsUtilisateurs;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 
 @ManagedBean(name="annonceCtrl", eager= true)
-@SessionScoped
+@ViewScoped
 public class AnnonceCtrl implements Serializable {	
 	/**
 	 * 
@@ -24,12 +29,17 @@ public class AnnonceCtrl implements Serializable {
 	@ManagedProperty(value="#{connexionsUtilisateurs}")
 	private ConnexionsUtilisateurs cu;
 	
+	@ManagedProperty(value="#{regionCtrl}")
+	private RegionCtrl rc;
+	
 	@EJB
-	AnnonceDAO anDAO;
+	immodbDAO imDao;
 	
 	private List<Annonce> listAnnonce;
 	private Annonce ann;
 	private Annonce newAnnonce = new Annonce();
+	
+	private UploadedFile uploadedFile;
 	
 	public AnnonceCtrl(){
 		newAnnonce.creerVide();
@@ -38,7 +48,7 @@ public class AnnonceCtrl implements Serializable {
 	
 	public List<Annonce> getListAnnonce()
 	{
-		listAnnonce = anDAO.getAllAnnonce();
+		listAnnonce = imDao.getAllAnnonce();
 		 return listAnnonce;
 	}	
 
@@ -56,14 +66,18 @@ public class AnnonceCtrl implements Serializable {
 		   }
 		}
 		
+		System.out.println("ME voici "+ annonce.getDescription() );
+		
 		return annonce;
 	}
 	
 	public String creerAnnonce() {
 		newAnnonce.creerVide();
+		imDao.insert(newAnnonce);
 		newAnnonce.setIdRefUser(cu.getUtilisateur(ulc.getUserLoginId()));
-		anDAO.insert(newAnnonce);
-		listAnnonce = anDAO.getAllAnnonce();
+		newAnnonce.getAdresseAnn().setRegionAdr(rc.getRegSelect());
+		imDao.update(newAnnonce);
+		listAnnonce = imDao.getAllAnnonce();
 		
 		return "accueil";
 		
@@ -72,9 +86,37 @@ public class AnnonceCtrl implements Serializable {
 	public String details(int id){
 		setAnn(RechercherAnnonce(id));
 		
+		System.out.println("valeur ann "+ ann.getDescription());
+		
 		return "detailsAnnonce";
 	}
+	
+	public String ModifierAnnonce(){
+		
+		System.out.println("MODIER ANN");
+		/*ann.setDescription(des);
+		ann.setDesignation(desi);
+		ann.setPrix(prx);
+		ann.setSurface(surface);
+		ann.getAdresseAnn().setCodePostal(cdp);
+		ann.getAdresseAnn().setLibelle(libelle);
+		ann.getAdresseAnn().setVille(v);
+		ann.getAdresseAnn().setRegionAdr(reg);
+		ann.getIdRefUser().setMobile(mobile);*/
+		return "informations";
+	}
 
+	public void upload(){
+		
+		System.out.println("pppppppp");
+		
+		String fileName = uploadedFile.getFileName();
+		String contentType = uploadedFile.getContentType();
+		byte[] contents = uploadedFile.getContents();
+		
+		System.out.println(fileName + "\t" + contentType + "\t" + contents);
+	}
+	
 	public Annonce getAnn() {
 		return ann;
 	}
@@ -111,4 +153,26 @@ public class AnnonceCtrl implements Serializable {
 	public void setCu(ConnexionsUtilisateurs cu) {
 		this.cu = cu;
 	}
+
+
+	public RegionCtrl getRc() {
+		return rc;
+	}
+
+
+	public void setRc(RegionCtrl rc) {
+		this.rc = rc;
+	}
+
+
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
+	
+	
 }

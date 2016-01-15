@@ -8,6 +8,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import alda.immobilier.bdd.immodbDAO;
+
 @ManagedBean(name="connexionsUtilisateurs", eager = true )
 @ApplicationScoped
 public class ConnexionsUtilisateurs implements Serializable{
@@ -16,7 +18,7 @@ public class ConnexionsUtilisateurs implements Serializable{
 	private ArrayList<Integer> connectes;
 	
 	@EJB
-	UtilisateurDAO utDao;
+	immodbDAO utDao;
 	
 	public ConnexionsUtilisateurs(){
 		connectes = new ArrayList<Integer>();

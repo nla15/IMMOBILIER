@@ -34,8 +34,10 @@
    			<h:inputText maxlength="50" binding="#{iCdp}" value="#{informationsCtrl.cdp}"/>
    			<h:outputText value="Ville: "/>
    			<h:inputText maxlength="50" binding="#{iVille}" value="#{informationsCtrl.ville}"/>
-   			<h:outputText value="Nom de région: "/>
-   			<h:inputText maxlength="50" binding="#{iNomReg}" value="#{informationsCtrl.nomReg}"/>
+   			<h:outputText value="Région: "/>
+   			<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
+   			</h:selectOneMenu>
    		</h:panelGrid>
    		<h:messages style="color:red" />
    		

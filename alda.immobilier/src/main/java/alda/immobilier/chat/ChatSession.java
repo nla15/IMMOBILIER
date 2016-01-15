@@ -70,7 +70,8 @@ public class ChatSession implements Serializable{
 	}
 	public void setConversation(String conversation) {
 		this.conversation = conversation;
-		
-		System.out.println(" ... "  + getExpediteurMsg() + " a bien reçu!");
+	}
+	public void ajouterMessageConversation(String message){
+		this.conversation += message;
 	}
 }

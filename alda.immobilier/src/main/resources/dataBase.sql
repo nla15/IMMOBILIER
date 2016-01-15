@@ -13,7 +13,7 @@ create table if not exists Adresse (
 	libelle varchar(300) not null,
 	codePostal varchar(5) not null,
 	ville varchar(100) not null,
-	regionAdr int(11) not null,
+	regionAdr int(11),
 	
 	foreign key (regionAdr) references Region(id),
 	primary key(id)
@@ -48,8 +48,8 @@ create table if not exists Annonce (
 	prix int(12) not null,
 	surface int(12) not null,
 	description varchar(500),
-	adresseAnn int(11) not null,
-	idRefUser int(11) not null,
+	adresseAnn int(11),
+	idRefUser int(11),
 	
 	foreign key (idRefUser) references Utilisateur(id),
 	foreign key (adresseAnn) references Adresse(id),

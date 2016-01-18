@@ -12,7 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import alda.immobilier.adresse.Region;
-import alda.immobilier.bdd.immodbDAO;
+import alda.immobilier.bdd.ImmodbDAO;
 
 @ManagedBean(name="UserLoginCtrl", eager= true)
 @SessionScoped
@@ -24,7 +24,7 @@ public class UserLoginCtrl implements Serializable{
 	private String msgDeco;
 	
 	@EJB
-	immodbDAO imDao;
+	ImmodbDAO imDao;
 	
 	@ManagedProperty(value="#{connexionsUtilisateurs}")
 	private ConnexionsUtilisateurs connexions;

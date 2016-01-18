@@ -8,18 +8,66 @@ import javax.persistence.Persistence;
 
 import alda.immobilier.adresse.Adresse;
 import alda.immobilier.adresse.Region;
+import alda.immobilier.criteres.CriteresRecherche;
 import alda.immobilier.utilisateur.UserLogin;
 import alda.immobilier.utilisateur.Utilisateur;
 
 @Stateless
-public class immodbDAO {
+public class ImmodbDAO {
 	private EntityManager entityManager;
 	private static final String JPA_UNIT_NAME = "immodbunit";
 	
-	public immodbDAO(){
+	public ImmodbDAO(){
 		entityManager = Persistence.createEntityManagerFactory(
 				JPA_UNIT_NAME).createEntityManager();
 	}
+	
+	// Les methodes génériques :
+	
+	@SuppressWarnings("unchecked")
+	public List<?> getAll(String tableName){
+		try {
+			Class<?> cls = Class.forName(tableName);
+			String req = "select * from " + tableName;
+			return entityManager.createNativeQuery(req, cls).getResultList();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public Object insertObject(Object o) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(o);
+		entityManager.getTransaction().commit();
+		return o;
+	}
+	
+	public Object updateObject(Object o) {
+		entityManager.getTransaction().begin();
+		o = entityManager.merge(o);
+		entityManager.getTransaction().commit();
+		return o;
+	}
+	
+	// CriteresRecherche :
+	
+	@SuppressWarnings("unchecked")
+	public List<CriteresRecherche> getAllCriteresRecherche(){
+		return (List<CriteresRecherche>) getAll("CriteresRecherche");
+	}
+	
+	public CriteresRecherche insertCriteresRecherche(CriteresRecherche cr){
+		return (CriteresRecherche) insertObject(cr);
+	}
+	
+	public CriteresRecherche updateCriteresRecherche(CriteresRecherche cr){
+		return (CriteresRecherche) updateObject(cr);
+	}
+	
+	// UserLogin :
 	
 	@SuppressWarnings("unchecked")
 	public UserLogin getUser(String mail_, String mdp_){

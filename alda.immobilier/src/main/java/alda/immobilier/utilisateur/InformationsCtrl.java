@@ -12,7 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import alda.immobilier.adresse.RegionCtrl;
-import alda.immobilier.bdd.immodbDAO;
+import alda.immobilier.bdd.ImmodbDAO;
 
 
 @ManagedBean(name="informationsCtrl", eager= true)
@@ -25,7 +25,7 @@ public class InformationsCtrl implements Serializable{
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl usc;
 	@EJB
-	private immodbDAO imDao;
+	private ImmodbDAO imDao;
 	
 	private Utilisateur infosUtil;
 	private String mail,

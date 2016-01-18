@@ -65,6 +65,19 @@ create table if not exists Image (
 	primary key(id)
 ) engine=innodb;
 
+create table if not exists CriteresRecherche (
+	id int(11) not null AUTO_INCREMENT,
+	prixMin float,
+	prixMax float,
+	surfaceMin float,
+	surfaceMax float,
+	idRegion int(11),
+	idUtilisateur int(11),
+	
+	foreign key (idRegion) references Region(id),
+	foreign key (idUtilisateur) references Utilisateur(id),
+	primary key(id)
+) engine=innodb;
 
 insert into Region values (0, 'Aquitaine');
 insert into Region values (0, 'Limousin');

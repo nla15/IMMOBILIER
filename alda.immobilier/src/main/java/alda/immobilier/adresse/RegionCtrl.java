@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 
-import alda.immobilier.bdd.immodbDAO;
+import alda.immobilier.bdd.ImmodbDAO;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 
 import javax.faces.bean.ManagedBean;
@@ -21,9 +21,7 @@ public class RegionCtrl implements Serializable {
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl ulc;
 	@EJB
-	private RegionDAO reDao;
-	@EJB
-	private immodbDAO imDao;
+	private ImmodbDAO imDao;
 	private String nomRegSelect;
 	
 	public RegionCtrl(){}

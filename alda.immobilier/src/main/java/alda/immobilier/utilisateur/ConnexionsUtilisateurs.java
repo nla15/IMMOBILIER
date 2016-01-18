@@ -18,7 +18,7 @@ public class ConnexionsUtilisateurs implements Serializable{
 	private ArrayList<Integer> connectes;
 	
 	@EJB
-	ImmodbDAO utDao;
+	ImmodbDAO imDao;
 	
 	public ConnexionsUtilisateurs(){
 		connectes = new ArrayList<Integer>();
@@ -47,6 +47,6 @@ public class ConnexionsUtilisateurs implements Serializable{
 	}
 	
 	public Utilisateur getUtilisateur(Integer id){
-		return utDao.getUtilisateur(id);
+		return imDao.getUtilisateur(id);
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 
 import alda.immobilier.adresse.Adresse;
 import alda.immobilier.adresse.Region;
+import alda.immobilier.annonce.Annonce;
 import alda.immobilier.criteres.CriteresRecherche;
 import alda.immobilier.utilisateur.UserLogin;
 import alda.immobilier.utilisateur.Utilisateur;
@@ -128,7 +129,7 @@ public class ImmodbDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Adresse>  getAllAdresse(){
+	public List<Adresse> getAllAdresse(){
 		List<Adresse> listAdr;
 		String req = "select * from Adresse";
 		listAdr = entityManager.createNativeQuery(req, Adresse.class).getResultList();
@@ -147,5 +148,29 @@ public class ImmodbDAO {
 	
 	public Region getDefaultRegion(){
 		return getAllRegion().get(0);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Annonce>  getAllAnnonce(){
+		
+		List<Annonce> listAnnonce;
+		String req = "select * from Annonce";
+		listAnnonce = entityManager.createNativeQuery(req, Annonce.class).getResultList();
+		
+		return listAnnonce;
+	}	
+	
+	public Annonce insert(Annonce a) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(a);
+		entityManager.getTransaction().commit();
+		return a;
+	}
+	
+	public Annonce update(Annonce a) {
+		entityManager.getTransaction().begin();
+		a = entityManager.merge(a);
+		entityManager.getTransaction().commit();
+		return a;
 	}
 }

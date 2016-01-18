@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" >
 <h:head>
 	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,7 +16,7 @@
 	<ui:include src="composants/menu.xhtml"/>
 	<center> <h2> Ajouter une annonce </h2> </center>
 	
-		<h:form>
+		<h:form enctype="multipart/form-data">
 		<h:panelGrid border="0" columns="3" cellpadding="5">
 			<h:outputText value="Designation *" />
 			<h:inputText id="Designation" value="#{annonceCtrl.newAnnonce.designation}"
@@ -56,16 +57,22 @@
 				<h:message for="ville" /><br/><br/>
 							
 				<h:outputText value="Region: * " />
-				<h:inputText id="region" value="#{annonceCtrl.newAnnonce.adresseAnn.regionAdr.nomRegion}"
-					required="true" requiredMessage="Region obligatoire" />
+				<h:selectOneMenu id="region" value="#{regionCtrl.nomRegSelect}">
+   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
+   				</h:selectOneMenu>
 				<h:message for="region" />	
 			</fieldset>
 			<br/>
-
+			<fieldset>
+				<legend>Ajouter images</legend>
+				<p:fileUpload mode="simple" value="{annonceCtrl.uploadedFile}" />
+				<p:commandButton type="submit" value="Upload" action="#{annonceCtrl.upload()}" ajax="false" />
+			</fieldset>
+			
 			<br/>
 			
        		<h:messages style="color:red" />			
-			<h:commandButton value="Ajouter" action="#{AnnonceCtrl.creerAnnonce}" />
+			<h:commandButton value="Ajouter" action="#{annonceCtrl.creerAnnonce}" />
 	</h:form>
 		
 </h:body>

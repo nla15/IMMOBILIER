@@ -1,6 +1,5 @@
 package alda.immobilier.utilisateur;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -8,8 +7,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import alda.immobilier.adresse.RegionCtrl;
 import alda.immobilier.bdd.ImmodbDAO;
@@ -28,14 +25,7 @@ public class InformationsCtrl implements Serializable{
 	private ImmodbDAO imDao;
 	
 	private Utilisateur infosUtil;
-	private String mail,
-	mdp,
-	nom,
-	prenom,
-	mobile,
-	libelle,
-	cdp,
-	ville;
+	private String mail, mdp, nom, prenom, mobile, libelle, cdp, ville;
 	
 	public InformationsCtrl(){
 		infosUtil = null;
@@ -85,14 +75,9 @@ public class InformationsCtrl implements Serializable{
 		imDao.update(infosUtil);
 	}
 	
-	public void annuler(){
+	public String annuler(){
 		init();
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		 try {
-			ec.redirect(ec.getRequestContextPath() + "/informations.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		return "informations";
 	}
 	
 	public UserLoginCtrl getUsc() {

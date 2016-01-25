@@ -67,7 +67,9 @@ public class ImmodbDAO {
 	}
 	
 	public void deleteObject(Object o){
+		entityManager.getTransaction().begin();
 		entityManager.remove(o);
+		entityManager.getTransaction().commit();
 	}
 	
 	// CriteresRecherche :

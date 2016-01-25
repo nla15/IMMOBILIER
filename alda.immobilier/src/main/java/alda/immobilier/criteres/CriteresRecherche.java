@@ -29,10 +29,10 @@ public class CriteresRecherche implements Serializable {
 	private float surfaceMin;
 	private float surfaceMax;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="idRegion", referencedColumnName="id")
 	private Region idRegion;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="idUtilisateur", referencedColumnName="id")
 	private Utilisateur idUtilisateur;
 	

@@ -6,7 +6,8 @@
 	
 	<h:link value="Accueil" outcome="/accueil.xhtml" /><h:outputText value=" "/>
 	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
-		<h:link value="Mon espace" outcome="/informations.xhtml" />
+		<h:link value="Mon espace" outcome="/informations.xhtml" /><br/>
+		<h:link value="Mes critères de recherche" outcome="/criteresRecherche.xhtml" />
 		<h:form><h:commandLink value="Se déconnecter" action="#{UserLoginCtrl.deconnecter()}"/></h:form>
 	</h:panelGroup>
 	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">

@@ -45,14 +45,6 @@ public class CriteresRechercheCtrl implements Serializable {
 		creerCriteresRecherche(true);
 	}
 	
-	public void modifier(CriteresRecherche cr){
-		imDAO.updateCriteresRecherche(cr);
-	}
-	
-	public void supprimer(CriteresRecherche cr){
-		imDAO.deleteCriteresRecherche(cr);
-	}
-	
 	private CriteresRecherche creerCriteresRecherche(boolean persister){
 		CriteresRecherche ncr = new CriteresRecherche();
 		ncr.creerVide();

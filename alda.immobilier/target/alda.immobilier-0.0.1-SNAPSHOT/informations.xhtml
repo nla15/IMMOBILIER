@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:head>
 	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -54,14 +55,31 @@
 			rowClasses="individuTableOddRow,authorTableEvenRow">
 
 			<h:column>
-				<f:facet name="header">Critère de recherche</f:facet>
-				<ui:include src="composants/barreRecherche.xhtml">
-					<ui:param name="crits" value="cr" /> 
-				</ui:include>
+				<h:form>
+					<h:panelGrid columns="3" border="0">
+					
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Prix minimum : "/><pe:inputNumber value="#{cr.prixMin}"/>
+							<h:outputText value="Prix maximum : "/><pe:inputNumber value="#{cr.prixMax}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Surface minimum : "/><pe:inputNumber value="#{cr.surfaceMin}"/>
+							<h:outputText value="Surface maximum : "/><pe:inputNumber value="#{cr.surfaceMax}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid rows="1" columns="2" border="0">
+							<h:outputText value="Region : "/>
+							<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+			   					<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{cr.idRegion.nomRegion}"/>
+			   				</h:selectOneMenu>
+						</h:panelGrid>
+						
+					</h:panelGrid>
+					<h:commandButton type="submit" value="Modifier" action="#{criteresRechercheUtilisateur.modifier(cr)}"/>
+				 	<h:commandButton type="submit" value="Supprimer" action="#{criteresRechercheUtilisateur.supprimer(cr)}"/>
+				</h:form>
       		</h:column>
-			<h:column>
-				 <h:commandButton type="submit" value="Supprimer"/>
-			</h:column>
 		</h:dataTable>
 	</h:form>
 		

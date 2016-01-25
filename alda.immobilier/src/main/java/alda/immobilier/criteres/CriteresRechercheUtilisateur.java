@@ -1,6 +1,7 @@
 package alda.immobilier.criteres;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,12 +25,12 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	@EJB
 	private ImmodbDAO imDAO;
 	private Utilisateur u;
-	private List<CriteresRecherche> crActifs;
+	private List<CriteresRechercheEditable> crActifs;
 	private CriteresRecherche crTmp;
 	
 	public CriteresRechercheUtilisateur(){
 		u = null;
-		crActifs = null;
+		crActifs = new ArrayList<>();
 		crTmp = null;
 	}
 	
@@ -43,8 +44,13 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		u = ulc.getUtilisateurConnecte();
 		
 		if ( u != null ){
-			crActifs = imDAO.getReqCriteresRecherche(
+			List<CriteresRecherche> crs = imDAO.getReqCriteresRecherche(
 					"SELECT * FROM CriteresRecherche WHERE idUtilisateur=" + u.getId());
+			if ( crs != null ){
+				crActifs.clear();
+				for (CriteresRecherche cr : crs )
+					crActifs.add(new CriteresRechercheEditable(cr));
+			}
 		} else {
 			crActifs = null;
 		}
@@ -62,13 +68,23 @@ public class CriteresRechercheUtilisateur implements Serializable{
 			if ( crActifs.isEmpty() || crActifs == null ){
 				return true;
 			} else {
-				for ( CriteresRecherche cr : crActifs )
-					if ( !cr.annonceCorrespond(a) )
+				for ( CriteresRechercheEditable cr : crActifs )
+					if ( !cr.getCrEncaps().annonceCorrespond(a) )
 						return false;
 				
 				return true;
 			}
 		}
+	}
+	
+	public void modifier(CriteresRecherche cr){
+		imDAO.updateCriteresRecherche(cr);
+		rafraichir();
+	}
+	
+	public void supprimer(CriteresRecherche cr){
+		imDAO.deleteCriteresRecherche(cr);
+		rafraichir();
 	}
 	
 	public void setCrTmp(CriteresRecherche cr){
@@ -79,7 +95,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		return crTmp;
 	}
 	
-	public List<CriteresRecherche> getCrActifs(){
+	public List<CriteresRechercheEditable> getCrActifs(){
 		rafraichir();
 		return crActifs;
 	}

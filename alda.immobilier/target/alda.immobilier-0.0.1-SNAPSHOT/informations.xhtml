@@ -45,7 +45,25 @@
    		 	</h:commandButton> 
    		<h:commandButton  type="submit" action="#{informationsCtrl.annuler()}"
             value="Annuler"></h:commandButton>
-   		</h:form>
+   	</h:form>
+   	
+   	<h:form>
+   		<h3>Mes critères de recherche : </h3>
+		<h:dataTable value="#{criteresRechercheUtilisateur.crActifs}" var="cr"
+			styleClass="individuTable" headerClass="individuTableHeader"
+			rowClasses="individuTableOddRow,authorTableEvenRow">
+
+			<h:column>
+				<f:facet name="header">Critère de recherche</f:facet>
+				<ui:include src="composants/barreRecherche.xhtml">
+					<ui:param name="crits" value="cr" /> 
+				</ui:include>
+      		</h:column>
+			<h:column>
+				 <h:commandButton type="submit" value="Supprimer"/>
+			</h:column>
+		</h:dataTable>
+	</h:form>
 		
 </h:body>
 </html>

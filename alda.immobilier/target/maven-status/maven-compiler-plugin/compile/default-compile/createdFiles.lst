@@ -19,4 +19,5 @@ alda\immobilier\adresse\AdresseDAO.class
 alda\immobilier\chat\ChatCtrl.class
 alda\immobilier\utilisateur\Utilisateur.class
 alda\immobilier\chat\Chat.class
+alda\immobilier\criteres\CriteresRechercheUtilisateur.class
 alda\immobilier\adresse\Region.class

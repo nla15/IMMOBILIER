@@ -41,15 +41,14 @@ create table if not exists Utilisateur (
 	primary key(id)
 ) engine=innodb;
 
-
 create table if not exists Annonce (
 	id int(11) not null AUTO_INCREMENT,
 	designation varchar(50) not null,
 	prix int(12) not null,
 	surface int(12) not null,
 	description varchar(500),
-	adresseAnn int(11) not null,
-	idRefUser int(11) not null,
+	adresseAnn int(11),
+	idRefUser int(11),
 	
 	foreign key (idRefUser) references Utilisateur(id),
 	foreign key (adresseAnn) references Adresse(id),
@@ -94,5 +93,5 @@ insert into Utilisateur values (0, 1, 'Moimeme', 'Moimeme', null ,2,2);
 insert into Annonce values(0,'Studio 30m²', 500, 30, 'Tres grand et enorme studio', 1,  2);
 insert into Annonce values(0,'Appart 9m²', 500, 30, 'Petit appartement posé au calme', 2,  1);
 
-insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image1.jpg', 1 );
-insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image2.jpg',2);
+insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image1.jpg', 1);
+insert into Image values(0,'/home/tity/Bureau/IMMOBILIER/imageImmo/image2.jpg', 2);

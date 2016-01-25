@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:head>
 	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -45,7 +46,42 @@
    		 	</h:commandButton> 
    		<h:commandButton  type="submit" action="#{informationsCtrl.annuler()}"
             value="Annuler"></h:commandButton>
-   		</h:form>
+   	</h:form>
+   	
+   	<h:form>
+   		<h3>Mes critères de recherche : </h3>
+		<h:dataTable value="#{criteresRechercheUtilisateur.crActifs}" var="cr"
+			styleClass="individuTable" headerClass="individuTableHeader"
+			rowClasses="individuTableOddRow,authorTableEvenRow">
+
+			<h:column>
+				<h:form>
+					<h:panelGrid columns="3" border="0">
+					
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Prix minimum : "/><pe:inputNumber value="#{cr.prixMin}"/>
+							<h:outputText value="Prix maximum : "/><pe:inputNumber value="#{cr.prixMax}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Surface minimum : "/><pe:inputNumber value="#{cr.surfaceMin}"/>
+							<h:outputText value="Surface maximum : "/><pe:inputNumber value="#{cr.surfaceMax}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid rows="1" columns="2" border="0">
+							<h:outputText value="Region : "/>
+							<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+			   					<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{cr.idRegion.nomRegion}"/>
+			   				</h:selectOneMenu>
+						</h:panelGrid>
+						
+					</h:panelGrid>
+					<h:commandButton type="submit" value="Modifier" action="#{criteresRechercheCtrl.modifier(cr)}"/>
+				 	<h:commandButton type="submit" value="Supprimer" action="#{criteresRechercheCtrl.supprimer(cr)}"/>
+				</h:form>
+      		</h:column>
+		</h:dataTable>
+	</h:form>
 		
 </h:body>
 </html>

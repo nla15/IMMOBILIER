@@ -26,16 +26,29 @@ public class ImmodbDAO {
 	// Les methodes génériques :
 	
 	@SuppressWarnings("unchecked")
-	public List<?> getAll(String tableName){
+	public List<?> getAll(String className){
 		try {
-			Class<?> cls = Class.forName(tableName);
-			String req = "select * from " + tableName;
+			Class<?> cls = Class.forName(className);
+			String req = "select * from " + cls.getSimpleName();
 			return entityManager.createNativeQuery(req, cls).getResultList();
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<?> getRequest(String req, String className){
+		Class<?> cls;
+		try {
+			cls = Class.forName(className);
+			return entityManager.createNativeQuery(req, cls).getResultList();
+		} catch (ClassNotFoundException e) {
+			System.out.println("\t*-- EXCEPTION getRequest()");
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
@@ -53,11 +66,20 @@ public class ImmodbDAO {
 		return o;
 	}
 	
+	public void deleteObject(Object o){
+		entityManager.remove(o);
+	}
+	
 	// CriteresRecherche :
 	
 	@SuppressWarnings("unchecked")
 	public List<CriteresRecherche> getAllCriteresRecherche(){
-		return (List<CriteresRecherche>) getAll("CriteresRecherche");
+		return (List<CriteresRecherche>) getAll("alda.immobilier.criteres.CriteresRecherche");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CriteresRecherche> getReqCriteresRecherche(String req){
+		return (List<CriteresRecherche>) getRequest(req, "alda.immobilier.criteres.CriteresRecherche");
 	}
 	
 	public CriteresRecherche insertCriteresRecherche(CriteresRecherche cr){
@@ -66,6 +88,10 @@ public class ImmodbDAO {
 	
 	public CriteresRecherche updateCriteresRecherche(CriteresRecherche cr){
 		return (CriteresRecherche) updateObject(cr);
+	}
+	
+	public void deleteCriteresRecherche(CriteresRecherche cr){
+		deleteObject(cr);
 	}
 	
 	// UserLogin :

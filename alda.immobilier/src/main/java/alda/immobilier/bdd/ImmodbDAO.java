@@ -1,5 +1,6 @@
 package alda.immobilier.bdd;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,9 +15,11 @@ import alda.immobilier.utilisateur.UserLogin;
 import alda.immobilier.utilisateur.Utilisateur;
 
 @Stateless
-public class ImmodbDAO {
-	private EntityManager entityManager;
+public class ImmodbDAO implements Serializable{
+	private static final long serialVersionUID = -3154104621056368704L;
 	private static final String JPA_UNIT_NAME = "immodbunit";
+	
+	private EntityManager entityManager;
 	
 	public ImmodbDAO(){
 		entityManager = Persistence.createEntityManagerFactory(
@@ -25,7 +28,6 @@ public class ImmodbDAO {
 	
 	// Les methodes génériques :
 	
-	@SuppressWarnings("unchecked")
 	public List<?> getAll(String className){
 		try {
 			Class<?> cls = Class.forName(className);
@@ -39,14 +41,12 @@ public class ImmodbDAO {
 		return null;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<?> getRequest(String req, String className){
 		Class<?> cls;
 		try {
 			cls = Class.forName(className);
 			return entityManager.createNativeQuery(req, cls).getResultList();
 		} catch (ClassNotFoundException e) {
-			System.out.println("\t*-- EXCEPTION getRequest()");
 			e.printStackTrace();
 		}
 		return null;

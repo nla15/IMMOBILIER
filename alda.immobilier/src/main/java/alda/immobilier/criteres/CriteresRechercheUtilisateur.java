@@ -22,6 +22,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	
 	@ManagedProperty(value="#{UserLoginCtrl}")
 	private UserLoginCtrl ulc;
+
 	@EJB
 	private ImmodbDAO imDAO;
 	private Utilisateur u;
@@ -40,7 +41,6 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	}
 	
 	public void rafraichir(){
-		crTmp = null;
 		u = ulc.getUtilisateurConnecte();
 		
 		if ( u != null ){
@@ -54,6 +54,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		} else {
 			crActifs = null;
 		}
+		System.out.println("rafraichir cr tmp " + (crTmp));
 	}
 	
 	/*
@@ -62,17 +63,22 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	 * enregistrés par clic sur le bouton "Rechercher".
 	 */
 	public boolean annonceCorrespondCriteres(Annonce a){
+		rafraichir();
+		System.out.print("crTmp = " + crTmp + " " + "Annonce " + a.getDesignation() + " : ");
+		
 		if ( crTmp != null ){
+			System.out.print("corresp. crit. tmp, OK");
 			return crTmp.annonceCorrespond(a);
 		} else {
 			if ( crActifs.isEmpty() || crActifs == null ){
 				return true;
 			} else {
-				for ( CriteresRechercheEditable cr : crActifs )
-					if ( !cr.getCrEncaps().annonceCorrespond(a) )
-						return false;
-				
-				return true;
+				for ( CriteresRechercheEditable cr : crActifs ){
+					if ( cr.getCrEncaps().annonceCorrespond(a) ){
+						return true;
+					}
+				}
+				return false;
 			}
 		}
 	}
@@ -89,6 +95,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	
 	public void setCrTmp(CriteresRecherche cr){
 		crTmp = cr;
+		System.out.println("Set cr tmp " + (crTmp));
 	}
 	
 	public CriteresRecherche getCrTmp(){

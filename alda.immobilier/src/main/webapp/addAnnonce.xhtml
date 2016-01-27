@@ -16,23 +16,23 @@
 	<ui:include src="composants/menu.xhtml"/>
 	<center> <h2> Ajouter une annonce </h2> </center>
 	
-		<h:form enctype="multipart/form-data">
+		<h:form>
 		<h:panelGrid border="0" columns="3" cellpadding="5">
 			<h:outputText value="Designation *" />
 			<h:inputText id="Designation" value="#{annonceCtrl.newAnnonce.designation}"
-				required="true" requiredMessage="Designation obligatoire" />
+				required="true" requiredMessage="Designation obligatoire" binding="#{iDesg}" />
 			<h:message for="Designation" />
 			
 			<h:outputText value="Description" />
-			<h:inputText id="Description" value="#{annonceCtrl.newAnnonce.description}"/><br/>
+			<h:inputText id="Description" value="#{annonceCtrl.newAnnonce.description}" binding="#{iDesc}"/><br/>
 			
 			<h:outputText value="Surface *" />
 			<h:inputText id="Surface" value="#{annonceCtrl.newAnnonce.surface}"
-				required="true" requiredMessage="Surface obligatoire" />
+				required="true" requiredMessage="Surface obligatoire" binding="#{iSurf}" />
 			<h:message for="Surface" />
 			
 			<h:outputText value="Prix *" />
-			<h:inputText id="Prix" value="#{annonceCtrl.newAnnonce.prix}"
+			<h:inputText id="Prix" value="#{annonceCtrl.newAnnonce.prix}" binding="#{iPrix}"
 				required="true" requiredMessage="Prix obligatoire" />
 			<h:message for="Prix" />
 					
@@ -43,36 +43,36 @@
 				<legend>Adresse</legend>
 				
 				<h:outputText value="Libelle: " />
-				<h:inputText id="Libelle" value="#{annonceCtrl.newAnnonce.adresseAnn.libelle}" />
+				<h:inputText id="Libelle" value="#{annonceCtrl.newAnnonce.adresseAnn.libelle}"  binding="#{iLib}"/>
 				<br/><br/>
 						
 				<h:outputText value="Code Postal: * " />
 				<h:inputText id="cdp" value="#{annonceCtrl.newAnnonce.adresseAnn.codePostal}"
-					required="true" requiredMessage="Code Postal obligatoire" />
+					required="true" requiredMessage="Code Postal obligatoire" binding="#{iCdp}" />
 				<h:message for="cdp" /><br/><br/>
 				
 				<h:outputText value="Ville: * " />
 				<h:inputText id="ville" value="#{annonceCtrl.newAnnonce.adresseAnn.ville}"
-					required="true" requiredMessage="Ville obligatoire" />
+					required="true" requiredMessage="Ville obligatoire" binding="#{iVille}"/>
 				<h:message for="ville" /><br/><br/>
 							
 				<h:outputText value="Region: * " />
 				<h:selectOneMenu id="region" value="#{regionCtrl.nomRegSelect}">
-   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
+   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}" binding="#{iReg}"/>
    				</h:selectOneMenu>
 				<h:message for="region" />	
 			</fieldset>
 			<br/>
 			<fieldset>
 				<legend>Ajouter images</legend>
-				<p:fileUpload mode="simple" value="{annonceCtrl.uploadedFile}" />
+				<p:fileUpload mode="simple" value="{annonceCtrl.uploadedFile}" binding="#{iImg}"/>
 				<p:commandButton type="submit" value="Upload" action="#{annonceCtrl.upload()}" ajax="false" />
 			</fieldset>
 			
 			<br/>
 			
        		<h:messages style="color:red" />			
-			<h:commandButton value="Ajouter" action="#{annonceCtrl.creerAnnonce}" />
+			<h:commandButton type="submit" value="Ajouter" action="#{annonceCtrl.creerAnnonce(iDesg.value, iDesc.value, iSurf.value, iPrix.value, iLib.value, iCdp.value, iVille.value)}" />
 	</h:form>
 		
 </h:body>

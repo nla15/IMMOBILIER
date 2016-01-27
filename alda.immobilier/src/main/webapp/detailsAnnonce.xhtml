@@ -19,13 +19,25 @@
 	<h:form>
 		<h:panelGrid columns="2" border="0">
    			<h:outputText value="Identifiant: "/>
-   			<h:outputText maxlength="50" binding="#{iId}" value="#{annonceCtrl.ann.id}"/>
+   			<h:outputText maxlength="50" binding="#{iId}" value="#{annonceCtrl.id}"/>
    			<h:outputText value="Designation: "/>
-   			<h:inputText maxlength="50" binding="#{iDesg}" value="#{annonceCtrl.ann.designation}"/>
+   			<h:inputText maxlength="50" binding="#{iDesg}" value="#{annonceCtrl.iDesg}"/>
    			<h:outputText value="Surface: "/>
-   			<h:inputText maxlength="50" binding="#{iSurf}" value="#{annonceCtrl.ann.surface}"/>
+   			<h:inputText maxlength="50" binding="#{iSurf}" value="#{annonceCtrl.iSurf}"/>
    			<h:outputText value="Description: "/>
-   			<h:inputTextarea maxlength="50" binding="#{iDesc}" value="#{annonceCtrl.ann.description}"/>
+   			<h:inputTextarea maxlength="50" binding="#{iDesc}" value="#{annonceCtrl.iDesc}"/>
+   			<h:outputText value="Prix: "/>
+   			<h:inputTextarea maxlength="50" binding="#{iPrix}" value="#{annonceCtrl.iPrix}"/>
+   			<h:outputText value="libelle: "/>
+   			<h:inputText maxlength="50" binding="#{iLibel}" value="#{annonceCtrl.iLibel}"/>
+   			<h:outputText value="Code postal: "/>
+   			<h:inputText maxlength="50" binding="#{icdp}" value="#{annonceCtrl.icdp}"/>
+   			<h:outputText value="Ville: "/>
+   			<h:inputText maxlength="50" binding="#{iV}" value="#{annonceCtrl.iV}"/>
+   			<h:outputText value="Region: "/> 			
+   			<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
+   			</h:selectOneMenu>
    			<h:outputText value="Vendeur: "/>
    			<h:inputText maxlength="50" binding="#{iVend}" value="#{annonceCtrl.ann.idRefUser.nom}"/>
    			<h:outputText value="Mobile: "/>
@@ -35,9 +47,9 @@
    		</h:panelGrid>
    		<h:messages style="color:red" />
    		
-   		 <h:commandButton  value="Modifier" action="#{annonceCtrl.ModifierAnnonce()}">
+   		 <h:commandButton  type="submit" value="Modifier" action="#{annonceCtrl.ModifierAnnonce()}">
    		 	</h:commandButton> 
-   		<h:commandButton  type="submit" value="Annuler"></h:commandButton>
+   		<h:commandButton  type="submit" value="Annuler" action="#{annonceCtrl.Annuler()}"></h:commandButton>
    		</h:form>
 
 </h:body>

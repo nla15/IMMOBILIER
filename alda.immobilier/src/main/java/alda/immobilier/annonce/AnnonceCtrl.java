@@ -33,13 +33,17 @@ public class AnnonceCtrl implements Serializable {
 	private RegionCtrl rc;
 	@ManagedProperty(value="#{criteresRechercheUtilisateur}")
 	private CriteresRechercheUtilisateur cru;
+	
+	@ManagedProperty(value="#{annonceDetails}")
+	private AnnonceDetails annonceDetails;
 
 	@EJB
 	ImmodbDAO imDao;
 	
-	private List<Annonce> listAnnonce;
+	
 	private List<Annonce> listAnnonceFiltre;
-	private Annonce ann;
+	//private List<Annonce> listAnnonce;
+	
 	private Annonce newAnnonce = new Annonce();
 	
 	private UploadedFile uploadedFile;
@@ -47,25 +51,24 @@ public class AnnonceCtrl implements Serializable {
 	private String iDesc, iDesg, ireg, iLibel, iV, icdp;
 	private float iSurf, iPrix;
 	private int id;
-	private int idDetailsAnn = 0;
 	
 	public AnnonceCtrl(){
 		newAnnonce.creerVide();
-		ann = null;
 		listAnnonceFiltre = new ArrayList<>();
+		
 	}
 	
 	@PostConstruct
 	void init(){
-		getAnn();
-		id = ann.getId();
-		iDesc = ann.getDescription();
-		iDesg = ann.getDesignation();
-		iLibel = ann.getAdresseAnn().getLibelle();
-		iV = ann.getAdresseAnn().getVille();
-		icdp = ann.getAdresseAnn().getCodePostal();
-		iSurf = ann.getSurface();
-		iPrix = ann.getPrix();		
+		annonceDetails.getAnnonceEnCours();
+		id =  annonceDetails.getAnnonceEnCours().getId();
+		iDesc = annonceDetails.getAnnonceEnCours().getDescription();
+		iDesg = annonceDetails.getAnnonceEnCours().getDesignation();
+		iLibel = annonceDetails.getAnnonceEnCours().getAdresseAnn().getLibelle();
+		iV = annonceDetails.getAnnonceEnCours().getAdresseAnn().getVille();
+		icdp = annonceDetails.getAnnonceEnCours().getAdresseAnn().getCodePostal();
+		iSurf = annonceDetails.getAnnonceEnCours().getSurface();
+		iPrix = annonceDetails.getAnnonceEnCours().getPrix();		
 	}
 		
 	
@@ -73,9 +76,9 @@ public class AnnonceCtrl implements Serializable {
 	 * de recherche des utilisateurs.
 	 */
 	public void filtrerListAnnonce(){
-		if ( listAnnonce != null ){
+		if ( annonceDetails.getListAnnonce() != null ){
 			listAnnonceFiltre.clear();
-			for ( Annonce a : listAnnonce ){
+			for ( Annonce a : annonceDetails.getListAnnonce() ){
 				if ( cru.annonceCorrespondCriteres(a))
 					listAnnonceFiltre.add(a);
 			}
@@ -83,37 +86,11 @@ public class AnnonceCtrl implements Serializable {
 	}
 	
 	public List<Annonce> getListAnnonceFiltre(){
-		getListAnnonce();
+		annonceDetails.getListAnnonce();
 		filtrerListAnnonce();
 		return listAnnonceFiltre;
 	}
 	
-	public List<Annonce> getListAnnonce()
-	{
-		listAnnonce = imDao.getAllAnnonce();
-		return listAnnonce;
-	}	
-
-
-	public void setListAnnonce(List<Annonce> listAnnonce) {
-		this.listAnnonce = listAnnonce;
-	}
-	
-	public Annonce RechercherAnnonce(int id){
-		setIdDetailsAnn(id);
-		System.out.println("idDetl dans Recherch: " + idDetailsAnn);
-		//Annonce annonce = null;
-		for(Annonce a : listAnnonce){
-		   if (a.getId() == id){
-			   newAnnonce = a;
-			   break;
-		   }
-		}
-		
-		System.out.println("ME voici "+ newAnnonce.getDescription() );
-		
-		return newAnnonce;
-	}
 	
 	public String creerAnnonce(String iDesg, String iDesc, float iSurf, float iPrix,
 								String iLib, String iCdp, String iVille) {
@@ -132,40 +109,33 @@ public class AnnonceCtrl implements Serializable {
 		
 		imDao.insert(newAnnonce);
 		newAnnonce.setIdRefUser(cu.getUtilisateur(ulc.getUserLoginId()));
-		//newAnnonce.getAdresseAnn().setRegionAdr(rc.getRegSelect());
 		imDao.update(newAnnonce);
-		listAnnonce = imDao.getAllAnnonce();
+		//listAnnonce = imDao.getAllAnnonce();
+		//listAnnonce =
+		annonceDetails.getListAnnonce();
 		
 		return "accueil";
 		
 	}
 	
 	
-	public String details(int id){
-		setIdDetailsAnn(id);
-		System.out.println("id dans details: " + id);
-		setAnn(RechercherAnnonce(id));
-		System.out.println("rech ann: "+ RechercherAnnonce(id).getDescription());
-		return "detailsAnnonce";
-	}
-	
 	public void ModifierAnnonce(){
 		
 		System.out.println("MODIER ANN");
-		ann.getId();
-		ann.setDescription(iDesc);
-		ann.setDesignation(iDesg);
-		ann.setPrix(iPrix);
-		ann.setSurface(iSurf);
-		ann.getAdresseAnn().setCodePostal(icdp);
-		ann.getAdresseAnn().setLibelle(iLibel);
-		ann.getAdresseAnn().setVille(iV);
-		ann.getAdresseAnn().setRegionAdr(rc.getRegSelect());
-		ann.getIdRefUser().getMobile();
-		ann.getIdRefUser().getNom();
-		ann.getIdRefUser().getIdRefUserLogin().getMail();
+		annonceDetails.getAnnonceEnCours().getId();
+		annonceDetails.getAnnonceEnCours().setDescription(iDesc);
+		annonceDetails.getAnnonceEnCours().setDesignation(iDesg);
+		annonceDetails.getAnnonceEnCours().setPrix(iPrix);
+		annonceDetails.getAnnonceEnCours().setSurface(iSurf);
+		annonceDetails.getAnnonceEnCours().getAdresseAnn().setCodePostal(icdp);
+		annonceDetails.getAnnonceEnCours().getAdresseAnn().setLibelle(iLibel);
+		annonceDetails.getAnnonceEnCours().getAdresseAnn().setVille(iV);
+		annonceDetails.getAnnonceEnCours().getAdresseAnn().setRegionAdr(rc.getRegSelect());
+		annonceDetails.getAnnonceEnCours().getIdRefUser().getMobile();
+		annonceDetails.getAnnonceEnCours().getIdRefUser().getNom();
+		annonceDetails.getAnnonceEnCours().getIdRefUser().getIdRefUserLogin().getMail();
 		
-		imDao.update(ann);
+		imDao.update(annonceDetails.getAnnonceEnCours());
 	}
 
 	public void upload(){
@@ -184,18 +154,6 @@ public class AnnonceCtrl implements Serializable {
 		return "detailsAnnonce";
 	}
 	
-	public Annonce getAnn() {
-		ann = imDao.getAllAnnonce().get(getIdDetailsAnn());
-		System.out.println("aanonce courante " + getIdDetailsAnn());
-		return ann;
-	}
-	
-
-	public void setAnn(Annonce an) {
-		ann = an;
-	}
-
-
 	public Annonce getNewAnnonce() {
 		return newAnnonce;
 	}
@@ -321,15 +279,6 @@ public class AnnonceCtrl implements Serializable {
 		return id;
 	}
 	
-	public int getIdDetailsAnn() {
-		System.out.println("idDetail dans get" + this.idDetailsAnn);		
-		return this.idDetailsAnn;
-	}
-
-	public void setIdDetailsAnn(int idDetailsAnn) {
-		this.idDetailsAnn = idDetailsAnn;
-		System.out.println("idDetail dans set after modif" + this.idDetailsAnn);
-	}
 
 	public CriteresRechercheUtilisateur getCru() {
 		return cru;
@@ -337,5 +286,13 @@ public class AnnonceCtrl implements Serializable {
 	
 	public void setCru(CriteresRechercheUtilisateur cru) {
 		this.cru = cru;
+	}
+	
+	public AnnonceDetails getAnnonceDetails() {
+		return annonceDetails;
+	}
+
+	public void setAnnonceDetails(AnnonceDetails annonceDetails) {
+		this.annonceDetails = annonceDetails;
 	}
 }

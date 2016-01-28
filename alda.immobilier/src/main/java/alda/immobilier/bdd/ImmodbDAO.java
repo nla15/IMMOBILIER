@@ -84,6 +84,11 @@ public class ImmodbDAO implements Serializable{
 		return (List<CriteresRecherche>) getRequest(req, "alda.immobilier.criteres.CriteresRecherche");
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Annonce getAnnonceById(int id){
+		return (Annonce) getRequest("select * from Annonce where id = " + id, "alda.immobilier.annonce.Annonce").get(0);
+	}
+	
 	public CriteresRecherche insertCriteresRecherche(CriteresRecherche cr){
 		return (CriteresRecherche) insertObject(cr);
 	}

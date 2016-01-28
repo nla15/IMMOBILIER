@@ -14,9 +14,12 @@ alda/immobilier/adresse/AdresseDAO.class
 alda/immobilier/chat/ChatCtrl.class
 alda/immobilier/chat/ChatSession.class
 alda/immobilier/adresse/RegionCtrl.class
+alda/immobilier/criteres/CriteresRechercheUtilisateur.class
 alda/immobilier/chat/Chat.class
 alda/immobilier/criteres/CriteresRecherche.class
+alda/immobilier/annonce/AnnonceDetails.class
 alda/immobilier/criteres/CriteresRechercheCtrl.class
 alda/immobilier/annonce/AnnonceCtrl.class
 alda/immobilier/utilisateur/Utilisateur.class
+alda/immobilier/criteres/CriteresRechercheEditable.class
 alda/immobilier/annonce/Annonce.class

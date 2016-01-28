@@ -33,15 +33,18 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		u = null;
 		crActifs = new ArrayList<>();
 		crTmp = null;
+		System.out.println("KONSTRUKTION");
 	}
 	
 	@PostConstruct
 	public void init(){
+		System.out.println("INITIALIZATION");
 		rafraichir();
 	}
 	
 	public void rafraichir(){
 		u = ulc.getUtilisateurConnecte();
+		System.out.println("DEBUT rafraichir cr tmp " + (getCrTmp()));
 		
 		if ( u != null ){
 			List<CriteresRecherche> crs = imDAO.getReqCriteresRecherche(
@@ -54,7 +57,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		} else {
 			crActifs = null;
 		}
-		System.out.println("rafraichir cr tmp " + (crTmp));
+		System.out.println("FIN rafraichir cr tmp " + (getCrTmp()));
 	}
 	
 	/*
@@ -64,11 +67,11 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	 */
 	public boolean annonceCorrespondCriteres(Annonce a){
 		rafraichir();
-		System.out.print("crTmp = " + crTmp + " " + "Annonce " + a.getDesignation() + " : ");
+		System.out.print("VERIF CRITS, crTmp = " + getCrTmp() + " " + "Annonce " + a.getDesignation() + " : ");
 		
-		if ( crTmp != null ){
+		if ( getCrTmp() != null ){
 			System.out.print("corresp. crit. tmp, OK");
-			return crTmp.annonceCorrespond(a);
+			return getCrTmp().annonceCorrespond(a);
 		} else {
 			if ( crActifs.isEmpty() || crActifs == null ){
 				return true;

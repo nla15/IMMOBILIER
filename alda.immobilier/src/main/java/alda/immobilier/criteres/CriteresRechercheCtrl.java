@@ -1,6 +1,5 @@
 package alda.immobilier.criteres;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -8,7 +7,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import alda.immobilier.adresse.RegionCtrl;
 import alda.immobilier.bdd.ImmodbDAO;
@@ -44,11 +42,6 @@ public class CriteresRechercheCtrl implements Serializable {
 		prixMax = "";
 		surfMin = "";
 		surfMax = "";
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("accueil.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void rechercher(){

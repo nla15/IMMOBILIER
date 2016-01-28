@@ -1,6 +1,7 @@
 package alda.immobilier.annonce;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import org.primefaces.model.UploadedFile;
 import alda.immobilier.adresse.Region;
 import alda.immobilier.adresse.RegionCtrl;
 import alda.immobilier.bdd.ImmodbDAO;
+import alda.immobilier.criteres.CriteresRechercheUtilisateur;
 import alda.immobilier.utilisateur.ConnexionsUtilisateurs;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 
@@ -29,11 +31,14 @@ public class AnnonceCtrl implements Serializable {
 	
 	@ManagedProperty(value="#{regionCtrl}")
 	private RegionCtrl rc;
-	
+	@ManagedProperty(value="#{criteresRechercheUtilisateur}")
+	private CriteresRechercheUtilisateur cru;
+
 	@EJB
 	ImmodbDAO imDao;
 	
 	private List<Annonce> listAnnonce;
+	private List<Annonce> listAnnonceFiltre;
 	private Annonce ann;
 	private Annonce newAnnonce = new Annonce();
 	
@@ -47,6 +52,7 @@ public class AnnonceCtrl implements Serializable {
 	public AnnonceCtrl(){
 		newAnnonce.creerVide();
 		ann = null;
+		listAnnonceFiltre = new ArrayList<>();
 	}
 	
 	@PostConstruct
@@ -60,12 +66,32 @@ public class AnnonceCtrl implements Serializable {
 		icdp = ann.getAdresseAnn().getCodePostal();
 		iSurf = ann.getSurface();
 		iPrix = ann.getPrix();		
-		
 	}
+		
+	
+	/* Tri des annonces qui correspondent ou non aux criteres
+	 * de recherche des utilisateurs.
+	 */
+	public void filtrerListAnnonce(){
+		if ( listAnnonce != null ){
+			listAnnonceFiltre.clear();
+			for ( Annonce a : listAnnonce ){
+				if ( cru.annonceCorrespondCriteres(a))
+					listAnnonceFiltre.add(a);
+			}
+		}
+	}
+	
+	public List<Annonce> getListAnnonceFiltre(){
+		getListAnnonce();
+		filtrerListAnnonce();
+		return listAnnonceFiltre;
+	}
+	
 	public List<Annonce> getListAnnonce()
 	{
 		listAnnonce = imDao.getAllAnnonce();
-		 return listAnnonce;
+		return listAnnonce;
 	}	
 
 
@@ -303,5 +329,12 @@ public class AnnonceCtrl implements Serializable {
 	public void setIdDetailsAnn(int idDetailsAnn) {
 		this.idDetailsAnn = idDetailsAnn;
 		System.out.println("idDetail dans set after modif" + this.idDetailsAnn);
+
+	public CriteresRechercheUtilisateur getCru() {
+		return cru;
+	}
+	
+	public void setCru(CriteresRechercheUtilisateur cru) {
+		this.cru = cru;
 	}
 }

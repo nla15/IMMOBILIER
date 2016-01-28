@@ -5,7 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 <h:head>
 	<!-- <h:outputStylesheet library="resources/css" name="table-style.css"  /> -->
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,13 +21,46 @@
 	<center><h3>Liste des Annonces</h3></center>
 		<br/>
 		
-	 <ui:include src="composants/barreRecherche.xhtml" />
-	
+	 <h:outputText value="Rechercher : "/>
+	<h:form>
+		<h:panelGrid columns="3" border="0">
+
+			<h:panelGrid rows="2" columns="2" border="0">
+				<h:outputText value="Prix minimum : " />
+				<pe:inputNumber value="#{criteresRechercheCtrl.prixMin}" />
+				<h:outputText value="Prix maximum : " />
+				<pe:inputNumber value="#{criteresRechercheCtrl.prixMax}" />
+			</h:panelGrid>
+
+			<h:panelGrid rows="2" columns="2" border="0">
+				<h:outputText value="Surface minimum : " />
+				<pe:inputNumber value="#{criteresRechercheCtrl.surfMin}" />
+				<h:outputText value="Surface maximum : " />
+				<pe:inputNumber value="#{criteresRechercheCtrl.surfMax}" />
+			</h:panelGrid>
+
+			<h:panelGrid rows="1" columns="2" border="0">
+				<h:outputText value="Region : " />
+				<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+					<f:selectItems value="#{regionCtrl.regions}" var="r"
+						itemValue="#{r.nomRegion}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+
+		</h:panelGrid>
+		<p:commandButton type="submit" value="Rechercher"
+			update="form-annonces" ajax="false"
+			action="#{criteresRechercheCtrl.rechercher()}" />
+		<p:commandButton type="submit" value="Sauvegarder"
+			update="form-annonces" ajax="false"
+			action="#{criteresRechercheCtrl.enregistrer()}" />
+	</h:form>
+
 	<h:button value="Ajouter une Annonce" outcome= "addAnnonce" />
 	<br/><br/><br/>
 	<h:panelGrid colums="2" border="0">
-		<h:form>
-			<h:dataTable value="#{annonceCtrl.listAnnonce}" var="a" 
+		<h:form id="form-annonces">
+			<h:dataTable value="#{annonceCtrl.listAnnonceFiltre}" var="a" 
 					styleClass="order-table"
 	    			headerClass="order-table-header"
 	    			rowClasses="order-table-odd-row,order-table-even-row">    			
@@ -66,7 +101,7 @@
 			
 			</h:form>
 		
-		<ui:include src="composants/chat.xhtml"/>
+		<!-- <ui:include src="composants/chat.xhtml"/>-->
 		</h:panelGrid>
 		
 </h:body>

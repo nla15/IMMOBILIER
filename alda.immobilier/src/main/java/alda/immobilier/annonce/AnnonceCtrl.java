@@ -329,6 +329,7 @@ public class AnnonceCtrl implements Serializable {
 	public void setIdDetailsAnn(int idDetailsAnn) {
 		this.idDetailsAnn = idDetailsAnn;
 		System.out.println("idDetail dans set after modif" + this.idDetailsAnn);
+	}
 
 	public CriteresRechercheUtilisateur getCru() {
 		return cru;

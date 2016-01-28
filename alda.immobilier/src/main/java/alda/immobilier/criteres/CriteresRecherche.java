@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import alda.immobilier.adresse.Region;
+import alda.immobilier.annonce.Annonce;
 import alda.immobilier.utilisateur.Utilisateur;
 
 @Entity
@@ -28,10 +29,10 @@ public class CriteresRecherche implements Serializable {
 	private float surfaceMin;
 	private float surfaceMax;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="idRegion", referencedColumnName="id")
 	private Region idRegion;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name="idUtilisateur", referencedColumnName="id")
 	private Utilisateur idUtilisateur;
 	
@@ -44,6 +45,26 @@ public class CriteresRecherche implements Serializable {
 		
 		idRegion = null;
 		idUtilisateur = null;
+	}
+	
+	public boolean annonceCorrespond(Annonce a){
+		float prx = a.getPrix();
+		float srf = a.getSurface();
+		Region rgn = a.getAdresseAnn().getRegionAdr();
+		
+		boolean prxOk = (prx >= this.prixMin && prx <= this.prixMax)	||
+						(this.prixMin == -1.0f && prx <= this.prixMax) 	||
+						(prx >= this.prixMin && this.prixMax == -1.0f) 	||
+						(this.prixMin == -1.0f && this.prixMax == -1.0f);
+		
+		boolean srfOk = (srf >= this.surfaceMin && srf <= this.surfaceMax)		||
+						(this.surfaceMin == -1.0f && srf <= this.surfaceMax) 	||
+						(srf >= this.surfaceMin && this.surfaceMax == -1.0f) 	||
+						(this.surfaceMin == -1.0f && this.surfaceMax == -1.0f);
+		
+		boolean rgnOk = (rgn == idRegion) || (idRegion == null);
+		
+		return prxOk && srfOk && rgnOk;
 	}
 	
 	public int getId() {

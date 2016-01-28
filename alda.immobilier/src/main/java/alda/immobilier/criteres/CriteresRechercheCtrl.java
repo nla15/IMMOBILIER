@@ -24,12 +24,17 @@ public class CriteresRechercheCtrl implements Serializable {
 	private UserLoginCtrl ulc;
 	@ManagedProperty(value="#{regionCtrl}")
 	private RegionCtrl rec;
+	@ManagedProperty(value="#{criteresRechercheUtilisateur}")
+	private CriteresRechercheUtilisateur cru;
 	@EJB
 	ImmodbDAO imDAO;
 	
 	private String prixMin, prixMax, surfMin, surfMax;
-
-	public CriteresRechercheCtrl(){}
+	private CriteresRecherche crEdit; // Celui qu'on edite dans la barre
+	
+	public CriteresRechercheCtrl(){
+		crEdit = null;
+	}
 	
 	@PostConstruct
 	public void init(){}
@@ -47,7 +52,6 @@ public class CriteresRechercheCtrl implements Serializable {
 	}
 	
 	public void rechercher(){
-
 		System.out.println("Rechercher");
 		cru.setCrTmp(creerCriteresRecherche(false));
 		reinit();
@@ -59,20 +63,26 @@ public class CriteresRechercheCtrl implements Serializable {
 	}
 	
 	private CriteresRecherche creerCriteresRecherche(boolean persister){
-
 		CriteresRecherche ncr = new CriteresRecherche();
 		ncr.creerVide();
-		ncr.setPrixMin( Float.parseFloat(prixMin) );
-		ncr.setPrixMax( Float.parseFloat(prixMax) );
-		ncr.setSurfaceMin( Float.parseFloat(surfMin) );
-		ncr.setSurfaceMax( Float.parseFloat(surfMax) );
-		imDAO.insertCriteresRecherche(ncr);
+		
+		ncr.setPrixMin( prixMin == "" ? -1.0f : Float.parseFloat(prixMin) );
+		ncr.setPrixMax( prixMax == "" ? -1.0f : Float.parseFloat(prixMax) );
+		ncr.setSurfaceMin( surfMin == "" ? -1.0f : Float.parseFloat(surfMin) );
+		ncr.setSurfaceMax( surfMax == "" ? -1.0f : Float.parseFloat(surfMax) );
+		
+		if ( persister )
+			imDAO.insertCriteresRecherche(ncr);
 		
 		Utilisateur u = ulc.getUtilisateurConnecte();
 		if ( u != null )
 			ncr.setIdUtilisateur(u);
 		ncr.setIdRegion( rec.getRegSelect() );
-		imDAO.updateCriteresRecherche(ncr);
+		
+		if ( persister )
+			imDAO.updateCriteresRecherche(ncr);
+		
+		return ncr;
 	}
 
 	public RegionCtrl getRec() {
@@ -121,5 +131,28 @@ public class CriteresRechercheCtrl implements Serializable {
 
 	public void setSurfMax(String surfMax) {
 		this.surfMax = surfMax;
+	}
+
+	public CriteresRechercheUtilisateur getCru() {
+		return cru;
+	}
+
+	public void setCru(CriteresRechercheUtilisateur cru) {
+		this.cru = cru;
+	}
+
+	public CriteresRecherche getCrEdit() {
+		return crEdit;
+	}
+
+	public void setCrEdit(CriteresRecherche crEdit) {
+		this.crEdit = crEdit;
+		if ( this.crEdit != null ){
+			this.prixMin = String.valueOf(crEdit.getPrixMin());
+			this.prixMax = String.valueOf(crEdit.getPrixMax());
+			this.surfMin = String.valueOf(crEdit.getSurfaceMin());
+			this.surfMax = String.valueOf(crEdit.getSurfaceMax());
+			this.rec.setNomRegSelect(crEdit.getIdRegion().getNomRegion());
+		}
 	}
 }

@@ -28,11 +28,10 @@ public class ImmodbDAO implements Serializable{
 	
 	// Les methodes génériques :
 	
-
 	public List<?> getAll(String className){
 		try {
-			Class<?> cls = Class.forName(tableName);
-			String req = "select * from " + tableName;
+			Class<?> cls = Class.forName(className);
+			String req = "select * from " + cls.getSimpleName();
 			return entityManager.createNativeQuery(req, cls).getResultList();
 			
 		} catch (ClassNotFoundException e) {
@@ -41,7 +40,7 @@ public class ImmodbDAO implements Serializable{
 		
 		return null;
 	}
-
+	
 	public List<?> getRequest(String req, String className){
 		Class<?> cls;
 		try {
@@ -67,11 +66,22 @@ public class ImmodbDAO implements Serializable{
 		return o;
 	}
 	
+	public void deleteObject(Object o){
+		entityManager.getTransaction().begin();
+		entityManager.remove(o);
+		entityManager.getTransaction().commit();
+	}
+	
 	// CriteresRecherche :
 	
 	@SuppressWarnings("unchecked")
 	public List<CriteresRecherche> getAllCriteresRecherche(){
-		return (List<CriteresRecherche>) getAll("CriteresRecherche");
+		return (List<CriteresRecherche>) getAll("alda.immobilier.criteres.CriteresRecherche");
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CriteresRecherche> getReqCriteresRecherche(String req){
+		return (List<CriteresRecherche>) getRequest(req, "alda.immobilier.criteres.CriteresRecherche");
 	}
 	
 	public CriteresRecherche insertCriteresRecherche(CriteresRecherche cr){
@@ -80,6 +90,10 @@ public class ImmodbDAO implements Serializable{
 	
 	public CriteresRecherche updateCriteresRecherche(CriteresRecherche cr){
 		return (CriteresRecherche) updateObject(cr);
+	}
+	
+	public void deleteCriteresRecherche(CriteresRecherche cr){
+		deleteObject(cr);
 	}
 	
 	// UserLogin :

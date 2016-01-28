@@ -15,7 +15,7 @@ import alda.immobilier.bdd.ImmodbDAO;
 import alda.immobilier.utilisateur.UserLoginCtrl;
 import alda.immobilier.utilisateur.Utilisateur;
 
-@ManagedBean(name="criteresRechercheUtilisateur", eager = true)
+@ManagedBean(name="criteresRechercheUtilisateur", eager = false)
 @SessionScoped
 public class CriteresRechercheUtilisateur implements Serializable{
 	private static final long serialVersionUID = -6330945953482977550L;

@@ -76,22 +76,36 @@ public class AnnonceCtrl implements Serializable {
 	/* Tri des annonces qui correspondent ou non aux criteres
 	 * de recherche des utilisateurs.
 	 */
-	public void filtrerListAnnonce(){
+	public String filtrerListAnnonce(){
 		List<Annonce> lst = annonceDetails.getListAnnonce();
+		listAnnonceFiltre.clear();
+		boolean noFSauv = false, noFTmp = false;
 		
 		if ( filtreActif ){
-			if ( annonceDetails.getListAnnonce() != null ){
-				listAnnonceFiltre.clear();
-				
+			if ( lst != null ){
 				for ( Annonce a : lst  ){
 					if ( cru.annonceCorrespondCriteres(a))
 						listAnnonceFiltre.add(a);
 				}
 			}
 		} else {
-			listAnnonceFiltre.clear();
+			noFSauv = true;
+		}
+		
+		if ( cru.getCrTmp() != null ){
+			for ( Annonce a : lst  ){
+				if ( cru.annonceCorrespondCriteresTmp(a))
+					listAnnonceFiltre.add(a);
+			}
+		} else {
+			noFTmp = true;
+		}
+		
+		if (noFSauv && noFTmp){
 			listAnnonceFiltre.addAll(lst);
 		}
+		
+		return "accueil";
 	}
 	
 	public List<Annonce> getListAnnonceFiltre(){
@@ -311,5 +325,16 @@ public class AnnonceCtrl implements Serializable {
 
 	public void setFiltreActif(boolean filtreActif) {
 		this.filtreActif = filtreActif;
+	}
+	
+	public void toggleFiltreActif(){
+		setFiltreActif(!getFiltreActif());
+	}
+	
+	public String getStrFiltre(){
+		if ( getFiltreActif() )
+			return "Désactiver critères";
+		else
+			return "Appliquer critères sauvegardés";
 	}
 }

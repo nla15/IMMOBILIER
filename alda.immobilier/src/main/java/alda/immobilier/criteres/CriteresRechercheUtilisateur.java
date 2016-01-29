@@ -33,18 +33,15 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		u = null;
 		crActifs = new ArrayList<>();
 		crTmp = null;
-		System.out.println("KONSTRUKTION");
 	}
 	
 	@PostConstruct
 	public void init(){
-		System.out.println("INITIALIZATION");
 		rafraichir();
 	}
 	
 	public void rafraichir(){
 		u = ulc.getUtilisateurConnecte();
-		System.out.println("DEBUT rafraichir cr tmp " + (getCrTmp()));
 		
 		if ( u != null ){
 			List<CriteresRecherche> crs = imDAO.getReqCriteresRecherche(
@@ -57,7 +54,6 @@ public class CriteresRechercheUtilisateur implements Serializable{
 		} else {
 			crActifs = null;
 		}
-		System.out.println("FIN rafraichir cr tmp " + (getCrTmp()));
 	}
 	
 	/*
@@ -67,23 +63,23 @@ public class CriteresRechercheUtilisateur implements Serializable{
 	 */
 	public boolean annonceCorrespondCriteres(Annonce a){
 		rafraichir();
-		System.out.print("VERIF CRITS, crTmp = " + getCrTmp() + " " + "Annonce " + a.getDesignation() + " : ");
-		
-		if ( getCrTmp() != null ){
-			System.out.print("corresp. crit. tmp, OK");
-			return getCrTmp().annonceCorrespond(a);
+		if ( crActifs.isEmpty() || crActifs == null ){
+			return true;
 		} else {
-			if ( crActifs.isEmpty() || crActifs == null ){
-				return true;
-			} else {
-				for ( CriteresRechercheEditable cr : crActifs ){
-					if ( cr.getCrEncaps().annonceCorrespond(a) ){
-						return true;
-					}
+			for ( CriteresRechercheEditable cr : crActifs ){
+				if ( cr.getCrEncaps().annonceCorrespond(a) ){
+					return true;
 				}
-				return false;
 			}
+			return false;
 		}
+	}
+	
+	public boolean annonceCorrespondCriteresTmp(Annonce a) {
+		if ( getCrTmp() != null ){
+			return getCrTmp().annonceCorrespond(a);
+		}
+		return false;
 	}
 	
 	public void modifier(CriteresRecherche cr){

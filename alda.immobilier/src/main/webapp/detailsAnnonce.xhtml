@@ -39,17 +39,18 @@
    				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
    			</h:selectOneMenu>
    			<h:outputText value="Vendeur: "/>
-   			<h:inputText maxlength="50" binding="#{iVend}" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.nom}"/>
+   			<h:inputText maxlength="50" binding="#{iVend}" disabled="true" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.nom}"/>
    			<h:outputText value="Mobile: "/>
-   			<h:inputText maxlength="50" binding="#{iMobile}" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.mobile}"/>
+   			<h:inputText maxlength="50" binding="#{iMobile}" disabled="true" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.mobile}"/>
    			<h:outputText value="Mail: "/>
-   			<h:inputText maxlength="50" binding="#{iMail}" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.idRefUserLogin.mail}"/>
+   			<h:inputText maxlength="50" binding="#{iMail}" disabled="true" value="#{annonceCtrl.annonceDetails.annonceEnCours.idRefUser.idRefUserLogin.mail}"/>
    		</h:panelGrid>
    		<h:messages style="color:red" />
    		
    		 <h:commandButton  type="submit" value="Modifier" action="#{annonceCtrl.ModifierAnnonce()}">
    		 	</h:commandButton> 
-   		<h:commandButton  type="submit" value="Annuler" action="#{annonceCtrl.Annuler()}"></h:commandButton>
+   		<h:commandButton  type="submit" value="Annuler Modification" action="#{annonceCtrl.Annuler()}"></h:commandButton>
+   		<h:commandButton  type="submit" value="Supprimer" action="#{annonceDetails.supprimerAnnonce(iId.value)}"></h:commandButton>
    		</h:form>
 
 </h:body>

@@ -113,10 +113,9 @@ public class AnnonceCtrl implements Serializable {
 		newAnnonce.setPrix(iPrix);
 		newAnnonce.getAdresseAnn().setLibelle(iLib);
 		newAnnonce.getAdresseAnn().setCodePostal(iCdp);
-		newAnnonce.getAdresseAnn().setVille(iVille);
-		newAnnonce.getAdresseAnn().setRegionAdr(rc.getRegSelect());
-		
+		newAnnonce.getAdresseAnn().setVille(iVille);		
 		imDao.insert(newAnnonce);
+		newAnnonce.getAdresseAnn().setRegionAdr(rc.getRegSelect());
 		newAnnonce.setIdRefUser(cu.getUtilisateur(ulc.getUserLoginId()));
 		imDao.update(newAnnonce);
 		//listAnnonce = imDao.getAllAnnonce();

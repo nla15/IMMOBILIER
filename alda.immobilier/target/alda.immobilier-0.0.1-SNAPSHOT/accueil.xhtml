@@ -51,9 +51,14 @@
 		<p:commandButton type="submit" value="Rechercher"
 			update="form-annonces" ajax="false"
 			action="#{criteresRechercheCtrl.rechercher()}" />
-		<p:commandButton type="submit" value="Sauvegarder"
+		<p:commandButton 
+			rendered="#{UserLoginCtrl.suisJeCo()}"
+			type="submit" value="Sauvegarder"
 			update="form-annonces" ajax="false"
 			action="#{criteresRechercheCtrl.enregistrer()}" />
+		<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
+			<h:selectBooleanCheckbox value="#{annonceCtrl.filtreActif}"/> Filtrer suivant les critères de recherche enregistrés
+		</h:panelGroup>
 	</h:form>
 
 	<h:button value="Ajouter une Annonce" outcome= "addAnnonce" />
@@ -94,7 +99,7 @@
 				</h:column>
 				
 				<h:column>
-					<h:commandLink value="Voir détails"  type="submit" action="#{annonceDetails.details(iID.value)}"/>
+					<h:commandLink value="Voir détails"  type="submit" action="#{annonceDetails.details(a.id)}"/>
 				</h:column>
 		
 			</h:dataTable>

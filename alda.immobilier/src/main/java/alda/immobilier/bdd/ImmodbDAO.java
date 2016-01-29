@@ -73,7 +73,6 @@ public class ImmodbDAO implements Serializable{
 	}
 	
 	// CriteresRecherche :
-	
 	@SuppressWarnings("unchecked")
 	public List<CriteresRecherche> getAllCriteresRecherche(){
 		return (List<CriteresRecherche>) getAll("alda.immobilier.criteres.CriteresRecherche");
@@ -205,5 +204,9 @@ public class ImmodbDAO implements Serializable{
 		a = entityManager.merge(a);
 		entityManager.getTransaction().commit();
 		return a;
+	}
+	
+	public void deleteUneAnnonce(Annonce a){
+		deleteObject(a);
 	}
 }

@@ -52,7 +52,7 @@ public class CriteresRechercheUtilisateur implements Serializable{
 					crActifs.add(new CriteresRechercheEditable(cr));
 			}
 		} else {
-			crActifs = null;
+			crActifs.clear();
 		}
 	}
 	

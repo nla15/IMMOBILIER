@@ -51,6 +51,7 @@ public class AnnonceCtrl implements Serializable {
 	private String iDesc, iDesg, ireg, iLibel, iV, icdp;
 	private float iSurf, iPrix;
 	private int id;
+	private boolean filtreActif;
 	
 	public AnnonceCtrl(){
 		newAnnonce.creerVide();
@@ -76,12 +77,17 @@ public class AnnonceCtrl implements Serializable {
 	 * de recherche des utilisateurs.
 	 */
 	public void filtrerListAnnonce(){
-		if ( annonceDetails.getListAnnonce() != null ){
-			listAnnonceFiltre.clear();
-			for ( Annonce a : annonceDetails.getListAnnonce() ){
-				if ( cru.annonceCorrespondCriteres(a))
-					listAnnonceFiltre.add(a);
+		if ( filtreActif ){
+			if ( annonceDetails.getListAnnonce() != null ){
+				listAnnonceFiltre.clear();
+				for ( Annonce a : annonceDetails.getListAnnonce() ){
+					if ( cru.annonceCorrespondCriteres(a))
+						listAnnonceFiltre.add(a);
+				}
 			}
+		} else {
+			listAnnonceFiltre.clear();
+			listAnnonceFiltre.add(annonceDetails.getUneAnnonce());
 		}
 	}
 	
@@ -294,5 +300,13 @@ public class AnnonceCtrl implements Serializable {
 
 	public void setAnnonceDetails(AnnonceDetails annonceDetails) {
 		this.annonceDetails = annonceDetails;
+	}
+
+	public boolean getFiltreActif() {
+		return filtreActif;
+	}
+
+	public void setFiltreActif(boolean filtreActive) {
+		this.filtreActif = filtreActive;
 	}
 }

@@ -56,12 +56,15 @@
 			type="submit" value="Sauvegarder"
 			update="form-annonces" ajax="false"
 			action="#{criteresRechercheCtrl.enregistrer()}" />
-		<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
-			<h:selectBooleanCheckbox value="#{annonceCtrl.filtreActif}"/> Filtrer suivant les critères de recherche enregistrés
-		</h:panelGroup>
+		<p:commandButton rendered="#{UserLoginCtrl.suisJeCo()}" 
+			update="form-annonces" ajax="false" 
+			value="#{annonceCtrl.getStrFiltre()}"
+			action="#{annonceCtrl.toggleFiltreActif()}"/>
 	</h:form>
 
-	<h:button value="Ajouter une Annonce" outcome= "addAnnonce" />
+	<br/>
+
+	<p:button value="Ajouter une Annonce" outcome= "addAnnonce" />
 	<br/><br/><br/>
 	<h:panelGrid colums="2" border="0">
 		<h:form id="form-annonces">

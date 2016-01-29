@@ -14,38 +14,43 @@
 	
 	<ui:include src="composants/menu.xhtml"/>
 	
-	<h2>Mon espace personnel</h2>
-	
-	<h:form>
-		<h:panelGrid columns="2" border="0">
-   			<h:outputText value="Email: "/>
-   			<h:inputText maxlength="50" binding="#{iMail}" value="#{informationsCtrl.mail}"/>
-   			<h:outputText value="Mot de passe: "/>
-   			<h:inputText maxlength="50" binding="#{iMdp}" value="#{informationsCtrl.mdp}"/>
-   			<h:outputText value="Nom: "/>
-   			<h:inputText maxlength="50" binding="#{iNom}" value="#{informationsCtrl.nom}"/>
-   			<h:outputText value="Prenom: "/>
-   			<h:inputText maxlength="50" binding="#{iPrenom}" value="#{informationsCtrl.prenom}"/>
-   			<h:outputText value="Mobile: "/>
-   			<h:inputText maxlength="50" binding="#{iMobile}" value="#{informationsCtrl.mobile}"/>
-   			<h:outputText value="Libelle: "/>
-   			<h:inputText maxlength="50" binding="#{iLibelle}" value="#{informationsCtrl.libelle}"/>
-   			<h:outputText value="Code Postal: "/>
-   			<h:inputText maxlength="50" binding="#{iCdp}" value="#{informationsCtrl.cdp}"/>
-   			<h:outputText value="Ville: "/>
-   			<h:inputText maxlength="50" binding="#{iVille}" value="#{informationsCtrl.ville}"/>
-   			<h:outputText value="Région: "/>
-   			<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
-   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
-   			</h:selectOneMenu>
-   		</h:panelGrid>
-   		<h:messages style="color:red" />
-   		
-   		 <h:commandButton type="submit" value="Enregistrer" action="#{informationsCtrl.enregistrer()}">
-   		 	</h:commandButton> 
-   		<h:commandButton  type="submit" action="#{informationsCtrl.annuler()}"
-            value="Annuler"></h:commandButton>
-   		</h:form>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
+		<h2>Mon espace personnel</h2>
+		
+		<h:form>
+			<h:panelGrid columns="2" border="0">
+	   			<h:outputText value="Email: "/>
+	   			<h:inputText maxlength="50" binding="#{iMail}" value="#{informationsCtrl.mail}"/>
+	   			<h:outputText value="Mot de passe: "/>
+	   			<h:inputText maxlength="50" binding="#{iMdp}" value="#{informationsCtrl.mdp}"/>
+	   			<h:outputText value="Nom: "/>
+	   			<h:inputText maxlength="50" binding="#{iNom}" value="#{informationsCtrl.nom}"/>
+	   			<h:outputText value="Prenom: "/>
+	   			<h:inputText maxlength="50" binding="#{iPrenom}" value="#{informationsCtrl.prenom}"/>
+	   			<h:outputText value="Mobile: "/>
+	   			<h:inputText maxlength="50" binding="#{iMobile}" value="#{informationsCtrl.mobile}"/>
+	   			<h:outputText value="Libelle: "/>
+	   			<h:inputText maxlength="50" binding="#{iLibelle}" value="#{informationsCtrl.libelle}"/>
+	   			<h:outputText value="Code Postal: "/>
+	   			<h:inputText maxlength="50" binding="#{iCdp}" value="#{informationsCtrl.cdp}"/>
+	   			<h:outputText value="Ville: "/>
+	   			<h:inputText maxlength="50" binding="#{iVille}" value="#{informationsCtrl.ville}"/>
+	   			<h:outputText value="Région: "/>
+	   			<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+	   				<f:selectItems value="#{regionCtrl.regions}" var="r" itemValue="#{r.nomRegion}"/>
+	   			</h:selectOneMenu>
+	   		</h:panelGrid>
+	   		<h:messages style="color:red" />
+	   		
+	   		 <h:commandButton type="submit" value="Enregistrer" action="#{informationsCtrl.enregistrer()}">
+	   		 	</h:commandButton> 
+	   		<h:commandButton  type="submit" action="#{informationsCtrl.annuler()}"
+	            value="Annuler"></h:commandButton>
+	   	</h:form>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
+		Vous devez être connecté pour voir cette page.
+	</h:panelGroup>
 		
 </h:body>
 </html>

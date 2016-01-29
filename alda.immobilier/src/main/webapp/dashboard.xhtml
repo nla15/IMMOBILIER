@@ -13,28 +13,33 @@
 <h:body>
 
 	<ui:include src="composants/menu.xhtml"/>
-	
+
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCoAdmin()}">
 	<h2>Dashboard administrateur</h2>
 
-	<h:form>
-		<h:dataTable value="#{connexionsUtilisateurs.connectes}" var="c"
-			styleClass="individuTable" headerClass="individuTableHeader"
-			rowClasses="individuTableOddRow,authorTableEvenRow">
-
-			<h:column>
-				<f:facet name="header">ID</f:facet>
-        	 	#{c.intValue()}
-      		</h:column>
-			<h:column>
-				<f:facet name="header">Nom</f:facet>
-				#{connexionsUtilisateurs.getUtilisateur(c.intValue()).prenom}
-				<h:outputText value=" "/>
-				#{connexionsUtilisateurs.getUtilisateur(c.intValue()).nom} 
-      		</h:column>
-			<h:column>
-				 <h:commandButton type="submit" value="Voir les annonces"/>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+		<h:form>
+			<h:dataTable value="#{connexionsUtilisateurs.connectes}" var="c"
+				styleClass="individuTable" headerClass="individuTableHeader"
+				rowClasses="individuTableOddRow,authorTableEvenRow">
+	
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+	        	 	#{c.intValue()}
+	      		</h:column>
+				<h:column>
+					<f:facet name="header">Nom</f:facet>
+					#{connexionsUtilisateurs.getUtilisateur(c.intValue()).prenom}
+					<h:outputText value=" "/>
+					#{connexionsUtilisateurs.getUtilisateur(c.intValue()).nom} 
+	      		</h:column>
+				<h:column>
+					 <h:commandButton type="submit" value="Voir les annonces"/>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCoAdmin()}">
+		Vous devez être connecté en tant qu'administrateur pour voir cette page.
+	</h:panelGroup>
 </h:body>
 </html>

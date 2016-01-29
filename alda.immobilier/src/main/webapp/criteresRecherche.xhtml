@@ -15,45 +15,50 @@
 <h:body>
 	<ui:include src="composants/menu.xhtml"/>
 	
-	<h2>Mes critères de recherche :</h2>
-	<h:form>
-		<h:messages id="messages" styleClass="messages" />
-		<h:dataTable id="dt-crits" value="#{criteresRechercheUtilisateur.crActifs}"
-			var="cre" styleClass="individuTable"
-			headerClass="individuTableHeader"
-			rowClasses="individuTableOddRow,authorTableEvenRow">
-
-			<h:column>
-				<h:panelGrid columns="3" border="0">
-
-					<h:panelGrid rows="2" columns="2" border="0">
-						<h:outputText value="Prix minimum : " />
-						<pe:inputNumber value="#{cre.prixMin}" />
-						<h:outputText value="Prix maximum : " />
-						<pe:inputNumber value="#{cre.prixMax}" />
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
+		<h2>Mes critères de recherche :</h2>
+		<h:form>
+			<h:messages id="messages" styleClass="messages" />
+			<h:dataTable id="dt-crits" value="#{criteresRechercheUtilisateur.crActifs}"
+				var="cre" styleClass="individuTable"
+				headerClass="individuTableHeader"
+				rowClasses="individuTableOddRow,authorTableEvenRow">
+	
+				<h:column>
+					<h:panelGrid columns="3" border="0">
+	
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Prix minimum : " />
+							<pe:inputNumber value="#{cre.prixMin}" />
+							<h:outputText value="Prix maximum : " />
+							<pe:inputNumber value="#{cre.prixMax}" />
+						</h:panelGrid>
+	
+						<h:panelGrid rows="2" columns="2" border="0">
+							<h:outputText value="Surface minimum : " />
+							<pe:inputNumber value="#{cre.surfaceMin}" />
+							<h:outputText value="Surface maximum : " />
+							<pe:inputNumber value="#{cre.surfaceMax}" />
+						</h:panelGrid>
+	
+						<h:panelGrid rows="1" columns="2" border="0">
+							<h:outputText value="Region : " />
+							<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
+								<f:selectItems value="#{regionCtrl.regions}" var="r"
+									itemValue="#{cre.nomRegion}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+	
 					</h:panelGrid>
-
-					<h:panelGrid rows="2" columns="2" border="0">
-						<h:outputText value="Surface minimum : " />
-						<pe:inputNumber value="#{cre.surfaceMin}" />
-						<h:outputText value="Surface maximum : " />
-						<pe:inputNumber value="#{cre.surfaceMax}" />
-					</h:panelGrid>
-
-					<h:panelGrid rows="1" columns="2" border="0">
-						<h:outputText value="Region : " />
-						<h:selectOneMenu value="#{regionCtrl.nomRegSelect}">
-							<f:selectItems value="#{regionCtrl.regions}" var="r"
-								itemValue="#{cre.nomRegion}" />
-						</h:selectOneMenu>
-					</h:panelGrid>
-
-				</h:panelGrid>
-				<p:commandButton update="dt-crits" type="submit" value="Modifier" action="#{criteresRechercheUtilisateur.modifier(cre.crEncaps)}" />
-				<p:commandButton update="dt-crits" type="submit" value="Supprimer" action="#{criteresRechercheUtilisateur.supprimer(cre.crEncaps)}" />
-			</h:column>
-		</h:dataTable>
-	</h:form>
+					<p:commandButton update="dt-crits" type="submit" value="Modifier" action="#{criteresRechercheUtilisateur.modifier(cre.crEncaps)}" />
+					<p:commandButton update="dt-crits" type="submit" value="Supprimer" action="#{criteresRechercheUtilisateur.supprimer(cre.crEncaps)}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
+		Vous devez être connecté pour voir cette page.
+	</h:panelGroup>
 
 </h:body>
 </html>

@@ -83,7 +83,6 @@ public class ImmodbDAO implements Serializable{
 		return (List<CriteresRecherche>) getRequest(req, "alda.immobilier.criteres.CriteresRecherche");
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Annonce getAnnonceById(int id){
 		return (Annonce) getRequest("select * from Annonce where id = " + id, "alda.immobilier.annonce.Annonce").get(0);
 	}
@@ -101,81 +100,43 @@ public class ImmodbDAO implements Serializable{
 	}
 	
 	// UserLogin :
-	
-	@SuppressWarnings("unchecked")
 	public UserLogin getUser(String mail_, String mdp_){
-		UserLogin user;
-		List<UserLogin> listU;
-		String req = "select * from UserLogin where mail='"+ mail_+"' and mdp='" +mdp_ + "'";
-		listU = entityManager.createNativeQuery(req, UserLogin.class).getResultList();
-		if(!listU.isEmpty()){
-			user = listU.get(0);
-		}else
-			user = null;
-		return user;
+		return (UserLogin) getRequest("select * from UserLogin where mail='"+ mail_+"' and mdp='" +mdp_ + "'",
+				"alda.immobilier.utilisateur.UserLogin").get(0);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public boolean verifMailExiste(String mail_){
-		List<UserLogin> listU;
-		String req = "select * from UserLogin where mail='"+ mail_+"'";
-		listU = entityManager.createNativeQuery(req, UserLogin.class).getResultList();
-		
-		return !listU.isEmpty();
-		
+		return !getRequest("select * from UserLogin where mail='"+ mail_+"'", "alda.immobilier.utilisateur.UserLogin").isEmpty();
 	}
 	
 	public UserLogin insertUserLogin(UserLogin u) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(u);
-		entityManager.getTransaction().commit();
+		insertObject(u);
 		return u;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Utilisateur getUtilisateur(int idUserLogin){
-		List<Utilisateur> listU;
-		Utilisateur res = null;
-		String req = "select * from Utilisateur where idRefUserLogin='"+ idUserLogin +"'";
-		listU = entityManager.createNativeQuery(req, Utilisateur.class).getResultList();
-		
-		if(!listU.isEmpty()){
-			res = listU.get(0);
-		}
-		
-		return res;
+		return (Utilisateur) getRequest("select * from Utilisateur where idRefUserLogin='"+ idUserLogin +"'",
+					"alda.immobilier.utilisateur.Utilisateur").get(0);
 	}
 	
 	public Utilisateur insertUtilisateur(Utilisateur u) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(u);
-		entityManager.getTransaction().commit();
+		insertObject(u);
 		return u;
 	}
 	
 	public Utilisateur update(Utilisateur u) {
-		entityManager.getTransaction().begin();
-		u = entityManager.merge(u);
-		entityManager.getTransaction().commit();
+		updateObject(u);
 		return u;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Adresse> getAllAdresse(){
-		List<Adresse> listAdr;
-		String req = "select * from Adresse";
-		listAdr = entityManager.createNativeQuery(req, Adresse.class).getResultList();
-		
-		return listAdr;
+		return (List<Adresse>) getAll("alda.immobilier.adresse.Adresse");
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Region> getAllRegion(){
-		List<Region> listReg;
-		String req = "select * from Region";
-		listReg = entityManager.createNativeQuery(req, Region.class).getResultList();
-		
-		return listReg;
+		return (List<Region>) getAll("alda.immobilier.adresse.Region");
 	}
 	
 	public Region getDefaultRegion(){
@@ -184,25 +145,16 @@ public class ImmodbDAO implements Serializable{
 	
 	@SuppressWarnings("unchecked")
 	public List<Annonce>  getAllAnnonce(){
-		
-		List<Annonce> listAnnonce;
-		String req = "select * from Annonce";
-		listAnnonce = entityManager.createNativeQuery(req, Annonce.class).getResultList();
-		
-		return listAnnonce;
-	}	
+		return (List<Annonce>) getAll("alda.immobilier.annonce.Annonce");
+	}
 	
 	public Annonce insert(Annonce a) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(a);
-		entityManager.getTransaction().commit();
+		insertObject(a);
 		return a;
 	}
 	
 	public Annonce update(Annonce a) {
-		entityManager.getTransaction().begin();
-		a = entityManager.merge(a);
-		entityManager.getTransaction().commit();
+		updateObject(a);
 		return a;
 	}
 	

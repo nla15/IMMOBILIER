@@ -39,7 +39,9 @@ public class AnnonceDetails implements Serializable{
 	
 	public Annonce RechercherAnnonce(int id){
 		//Annonce annonce = null;
+		getListAnnonce();
 		for(Annonce a : listAnnonce){
+			System.out.println("padanlfor");
 		   if (a.getId() == id){
 			   uneAnnonce = a;
 			   break;

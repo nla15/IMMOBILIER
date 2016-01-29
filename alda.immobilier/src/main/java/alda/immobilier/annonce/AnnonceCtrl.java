@@ -56,7 +56,7 @@ public class AnnonceCtrl implements Serializable {
 	public AnnonceCtrl(){
 		newAnnonce.creerVide();
 		listAnnonceFiltre = new ArrayList<>();
-		
+		filtreActif = false;
 	}
 	
 	@PostConstruct
@@ -77,17 +77,20 @@ public class AnnonceCtrl implements Serializable {
 	 * de recherche des utilisateurs.
 	 */
 	public void filtrerListAnnonce(){
+		List<Annonce> lst = annonceDetails.getListAnnonce();
+		
 		if ( filtreActif ){
 			if ( annonceDetails.getListAnnonce() != null ){
 				listAnnonceFiltre.clear();
-				for ( Annonce a : annonceDetails.getListAnnonce() ){
+				
+				for ( Annonce a : lst  ){
 					if ( cru.annonceCorrespondCriteres(a))
 						listAnnonceFiltre.add(a);
 				}
 			}
 		} else {
 			listAnnonceFiltre.clear();
-			listAnnonceFiltre.add(annonceDetails.getUneAnnonce());
+			listAnnonceFiltre.addAll(lst);
 		}
 	}
 	
@@ -306,7 +309,7 @@ public class AnnonceCtrl implements Serializable {
 		return filtreActif;
 	}
 
-	public void setFiltreActif(boolean filtreActive) {
-		this.filtreActif = filtreActive;
+	public void setFiltreActif(boolean filtreActif) {
+		this.filtreActif = filtreActif;
 	}
 }

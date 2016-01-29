@@ -61,6 +61,13 @@ public class AnnonceDetails implements Serializable{
 		System.out.println("rech ann: "+ RechercherAnnonce(id).getDescription());
 		return "detailsAnnonce";
 	}
+	
+	public String supprimerAnnonce(int id){
+		Annonce annonce = RechercherAnnonce(id);
+		imDao.deleteUneAnnonce(annonce);
+		setIdDetails(1);
+		return "accueil";
+	}
 
 	public Annonce getUneAnnonce() {
 		return uneAnnonce;

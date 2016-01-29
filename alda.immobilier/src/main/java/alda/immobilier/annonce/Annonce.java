@@ -36,11 +36,11 @@ public class Annonce implements Serializable {
 	private float surface;
 	private  String description;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="adresseAnn", referencedColumnName="id")
 	private Adresse adresseAnn;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="idRefUser", referencedColumnName="id")
 	private Utilisateur idRefUser;
 	

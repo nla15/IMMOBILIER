@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import alda.immobilier.bdd.ImmodbDAO;
+import alda.immobilier.utilisateur.UserLoginCtrl;
 
-@ManagedBean(name="annonceDetails", eager= true)
+@ManagedBean(name="annonceDetails", eager= false)
 @SessionScoped
 public class AnnonceDetails implements Serializable{
 	/**
@@ -21,6 +23,9 @@ public class AnnonceDetails implements Serializable{
 	private List<Annonce> listAnnonce;
 	private Annonce annonceEnCours;
 	
+	@ManagedProperty(value="#{UserLoginCtrl}")
+	private UserLoginCtrl ulc;
+
 	@EJB
 	ImmodbDAO imDao;
 	
@@ -68,6 +73,26 @@ public class AnnonceDetails implements Serializable{
 		setIdDetails(1);
 		return "accueil";
 	}
+	
+	public boolean suisJeAdmin(){
+		int idUserAnnonce = annonceEnCours.getIdRefUser().getIdRefUserLogin().getId();
+		System.out.println("ulc user"+ ulc);
+		System.out.println("ulc user"+ ulc.getUserLogin());
+		Integer idUserCo = ulc.getUserLoginId();
+		
+		if(idUserCo == null){
+			return false;
+		}
+		else
+			if(idUserAnnonce == idUserCo){
+				return true;
+			}
+		return false;		
+	}
+	
+	public boolean suisJeNoAdmin(){
+		return !suisJeAdmin();
+	}
 
 	public Annonce getUneAnnonce() {
 		return uneAnnonce;
@@ -96,6 +121,14 @@ public class AnnonceDetails implements Serializable{
 	public void setAnnonceEnCours(Annonce annonceEnCours) {
 		this.annonceEnCours = annonceEnCours;
 	}
+
 	
+	public UserLoginCtrl getUlc() {
+		return ulc;
+	}
+
+	public void setUlc(UserLoginCtrl ulc) {
+		this.ulc = ulc;
+	}
 	
 }

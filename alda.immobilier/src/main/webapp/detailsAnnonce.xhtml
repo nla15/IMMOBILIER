@@ -15,21 +15,21 @@
 	<ui:include src="composants/menu.xhtml"/>
 	
 	<center><h3>Une Annonce</h3></center>
-	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
+	
 	<h:form>
 		<h:panelGrid columns="2" border="0">
    			<h:outputText value="Identifiant: "/>
    			<h:outputText maxlength="50" binding="#{iId}" value="#{annonceCtrl.id}"/>
    			<h:outputText value="Designation: "/>
-   			<h:inputText maxlength="50" binding="#{iDesg}" value="#{annonceCtrl.iDesg}"/>
+   			<h:inputText maxlength="50" binding="#{iDesg}"  value="#{annonceCtrl.iDesg}"/>
    			<h:outputText value="Surface: "/>
-   			<h:inputText maxlength="50" binding="#{iSurf}" value="#{annonceCtrl.iSurf}"/>
+   			<h:inputText maxlength="50" binding="#{iSurf}"  value="#{annonceCtrl.iSurf}"/>
    			<h:outputText value="Description: "/>
    			<h:inputTextarea maxlength="50" binding="#{iDesc}" value="#{annonceCtrl.iDesc}"/>
    			<h:outputText value="Prix: "/>
-   			<h:inputTextarea maxlength="50" binding="#{iPrix}" value="#{annonceCtrl.iPrix}"/>
+   			<h:inputTextarea maxlength="50" binding="#{iPrix}"  value="#{annonceCtrl.iPrix}"/>
    			<h:outputText value="libelle: "/>
-   			<h:inputText maxlength="50" binding="#{iLibel}" value="#{annonceCtrl.iLibel}"/>
+   			<h:inputText maxlength="50" binding="#{iLibel}"  value="#{annonceCtrl.iLibel}"/>
    			<h:outputText value="Code postal: "/>
    			<h:inputText maxlength="50" binding="#{icdp}" value="#{annonceCtrl.icdp}"/>
    			<h:outputText value="Ville: "/>
@@ -52,10 +52,6 @@
    		<h:commandButton  type="submit" value="Annuler Modification" action="#{annonceCtrl.Annuler()}"></h:commandButton>
    		<h:commandButton  type="submit" value="Supprimer" action="#{annonceDetails.supprimerAnnonce(iId.value)}"></h:commandButton>
    		</h:form>
-   	</h:panelGroup>
-	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
-		Vous devez être connecté pour voir cette page.
-	</h:panelGroup>
 
 </h:body>
 </html>

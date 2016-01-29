@@ -11,28 +11,36 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
 <h:body>
-	<h1>Page de Connexion</h1>
 	
-	<h:form>
-        <h:outputText value="Votre Email: " />
-        <h:inputText id="email" binding="#{inpEMail}"></h:inputText>
-        <h:message for="email"></h:message>
-        <br /><br />
-         
-        <h:outputText value="Votre mot de passe: " />
-        <h:inputSecret id="mdp" binding="#{inpMdp}"></h:inputSecret>
-        <h:message for="mdp"></h:message>
-        <br /><br />
-         
-        <h:commandButton  type="submit" action="#{UserLoginCtrl.login(inpEMail.value, inpMdp.value)}"
-            value="se connecter"></h:commandButton> <br /><br />
-            
-        <h:messages style="color:red" />
-        <h:outputText style="color:green" value="#{UserLoginCtrl.msgDeco}" />
-        <br/>    
-        <h:link value="S'inscrire" outcome="/sinscrire.xhtml" />
+	<ui:include src="composants/menu.xhtml"/>
 
-    </h:form>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
+		<h1>Page de Connexion</h1>
+		
+		<h:form>
+	        <h:outputText value="Votre Email: " />
+	        <h:inputText id="email" binding="#{inpEMail}"></h:inputText>
+	        <h:message for="email"></h:message>
+	        <br /><br />
+	         
+	        <h:outputText value="Votre mot de passe: " />
+	        <h:inputSecret id="mdp" binding="#{inpMdp}"></h:inputSecret>
+	        <h:message for="mdp"></h:message>
+	        <br /><br />
+	         
+	        <h:commandButton  type="submit" action="#{UserLoginCtrl.login(inpEMail.value, inpMdp.value)}"
+	            value="se connecter"></h:commandButton> <br /><br />
+	            
+	        <h:messages style="color:red" />
+	        <h:outputText style="color:green" value="#{UserLoginCtrl.msgDeco}" />
+	        <br/>    
+	        <h:link value="S'inscrire" outcome="/sinscrire.xhtml" />
+	
+	    </h:form>
+    </h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
+		Vous devez êtes déjà connecté.
+	</h:panelGroup>
 	
 </h:body>
 </html>

@@ -117,6 +117,10 @@ public class UserLoginCtrl implements Serializable{
 		return 	userLogin != null &&
 				connexions.getUtilisateur(userLogin.getId()).getAdmin();
 	}
+	
+	public boolean suisJePasCoAdmin(){
+		return ! suisJeCoAdmin();
+	}
 
 	public UserLogin getUserLogin() {
 		return userLogin;

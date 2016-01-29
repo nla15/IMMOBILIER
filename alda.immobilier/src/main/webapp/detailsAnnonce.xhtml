@@ -14,8 +14,8 @@
 
 	<ui:include src="composants/menu.xhtml"/>
 	
-	<center><h3>Mon Annonce</h3></center>
-	
+	<center><h3>Une Annonce</h3></center>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
 	<h:form>
 		<h:panelGrid columns="2" border="0">
    			<h:outputText value="Identifiant: "/>
@@ -52,6 +52,10 @@
    		<h:commandButton  type="submit" value="Annuler Modification" action="#{annonceCtrl.Annuler()}"></h:commandButton>
    		<h:commandButton  type="submit" value="Supprimer" action="#{annonceDetails.supprimerAnnonce(iId.value)}"></h:commandButton>
    		</h:form>
+   	</h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
+		Vous devez être connecté pour voir cette page.
+	</h:panelGroup>
 
 </h:body>
 </html>

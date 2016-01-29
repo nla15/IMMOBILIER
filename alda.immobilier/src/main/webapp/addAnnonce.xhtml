@@ -14,9 +14,11 @@
 <h:body>
 
 	<ui:include src="composants/menu.xhtml"/>
+	
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJeCo()}">
 	<center> <h2> Ajouter une annonce </h2> </center>
 	
-		<h:form>
+	<h:form>
 		<h:panelGrid border="0" columns="3" cellpadding="5">
 			<h:outputText value="Designation *" />
 			<h:inputText id="Designation" value="#{annonceCtrl.newAnnonce.designation}"
@@ -74,6 +76,10 @@
        		<h:messages style="color:red" />			
 			<h:commandButton type="submit" value="Ajouter" action="#{annonceCtrl.creerAnnonce(iDesg.value, iDesc.value, iSurf.value, iPrix.value, iLib.value, iCdp.value, iVille.value)}" />
 	</h:form>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{UserLoginCtrl.suisJePasCo()}">
+		Vous devez être connecté pour voir cette page.
+	</h:panelGroup>
 		
 </h:body>
 </html>
